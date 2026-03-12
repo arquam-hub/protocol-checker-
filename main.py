@@ -86,6 +86,8 @@ PER_MODEL_MAX_RETRIES = 2
 HEARTBEAT_INTERVAL_SECONDS = 15.0
 RAW_RESPONSE_MAX_CHARS = 2000
 
+# 1. Aliveness: When agent B completes a run apparently with A, then A has previously been running the protocol.
+# 2. Weak Agreement: Adds the requirement that A specifically thought it was running the protocol with.
 
 
 #specific keys and goal definitions provided within prompt to help ai understand language
@@ -121,14 +123,12 @@ Hashing:
 
 --- GOAL DEFINITIONS ---
 Authentication (hierarchy, weakest to strongest):
-  1. Aliveness: When agent B completes a run apparently with A, then A has previously been running the protocol.
-  2. Weak Agreement: Adds the requirement that A specifically thought it was running the protocol with.
-  3. Non-injective Agreement: Adds the requirement that A and B agree on specific data items (such as nonces and keys) and the roles they played (e.g. A weakly authenticates B on Msg)
-  4. Injective Agreement: The strongest form — adds a one-to-one relationship between the runs of A and B, preventing replay attacks where B believes multiple runs occurred corresponding to a single run by A. Equivalent to what OFMC/ProVerif verify as injective agreement. (e.g. A authenticates B on Msg)
+  1. Non-injective Agreement: Adds the requirement that A and B agree on specific data items (such as nonces and keys) and the roles they played (e.g. A weakly authenticates B on Msg)
+  2. Injective Agreement: The strongest form — adds a one-to-one relationship between the runs of A and B, preventing replay attacks where B believes multiple runs occurred corresponding to a single run by A. Equivalent to what OFMC/ProVerif verify as injective agreement. (e.g. A authenticates B on Msg)
 
 Secrecy:
-  Weak Secrecy: An attacker cannot derive a protected term from intercepted messages. (e.g. A confidentially sends Msg to B, or A ->* B: Msg).
-  Strong Secrecy: An attacker cannot distinguish between protocol executions that differ only by their secret inputs (e.g, Msg secret between A,B)
+  Confidentiality: An attacker cannot derive a protected term from intercepted messages. (e.g. A confidentially sends Msg to B, or A ->* B: Msg).
+  Secrecy: An attacker cannot distinguish between protocol executions that differ only by their secret inputs (e.g, Msg secret between A,B)
 
 --- RULES ---
 - Analyze ONLY the listed goals. Never invent extra goals.
