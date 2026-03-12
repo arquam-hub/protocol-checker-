@@ -89,7 +89,6 @@ RAW_RESPONSE_MAX_CHARS = 2000
 # 1. Aliveness: When agent B completes a run apparently with A, then A has previously been running the protocol.
 # 2. Weak Agreement: Adds the requirement that A specifically thought it was running the protocol with.
 
-
 #specific keys and goal definitions provided within prompt to help ai understand language
 #
 PROMPT_TEMPLATE = """
@@ -120,6 +119,13 @@ Where:
 Hashing:
   hash(Msg)    : cryptographic hash of Msg (e.g. MD5, SHA-1, SHA-2, SHA-3)
   hmac(K, Msg) : keyed HMAC of Msg under symmetric key K (e.g. HMAC-SHA1, HMAC-SHA2)
+
+--- CHANNELS ---
+
+A -> B: Msg   : Message exchange on an insecure channel
+A ->* B: Msg  : Message exchange on a confidential channel
+A *-> B: Msg  : Message exchange on an authenticated channel
+A *->* B: Msg  : Message exchange on a secure channel
 
 --- GOAL DEFINITIONS ---
 Authentication (hierarchy, weakest to strongest):
