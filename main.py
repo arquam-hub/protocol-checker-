@@ -20,7 +20,7 @@ from datetime import datetime
 from html import escape
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
-#compatible with deepseek and openai
+
 from openai import OpenAI
 
 try:
@@ -76,21 +76,18 @@ SECTION_HEADERS = {
     "END",
 }
 
-
 # Configurable timeout / retry constants (requirement B)
 #generous timeout limits, reasoning models take time (tried and tested)
-
 PER_MODEL_REQUEST_TIMEOUT_SECONDS = 480.0
 PER_PROTOCOL_TIMEOUT_SECONDS = 540.0
 PER_MODEL_MAX_RETRIES = 2
 HEARTBEAT_INTERVAL_SECONDS = 15.0
 RAW_RESPONSE_MAX_CHARS = 2000
 
-# 1. Aliveness: When agent B completes a run apparently with A, then A has previously been running the protocol.
+#specific keys and goal definitions provided within prompt to help ai understand language
+## 1. Aliveness: When agent B completes a run apparently with A, then A has previously been running the protocol.
 # 2. Weak Agreement: Adds the requirement that A specifically thought it was running the protocol with.
 
-#specific keys and goal definitions provided within prompt to help ai understand language
-#
 PROMPT_TEMPLATE = """
 You are a security protocol verifier using symbolic reasoning.
 
@@ -129,18 +126,20 @@ A *->* B: Msg  : Message exchange on a secure channel
 
 --- GOAL DEFINITIONS ---
 Authentication (hierarchy, weakest to strongest):
-  1. Non-injective Agreement: Adds the requirement that A and B agree on specific data items (such as nonces and keys) and the roles they played (e.g. A weakly authenticates B on Msg)
-  2. Injective Agreement: The strongest form — adds a one-to-one relationship between the runs of A and B, preventing replay attacks where B believes multiple runs occurred corresponding to a single run by A. Equivalent to what OFMC/ProVerif verify as injective agreement. (e.g. A authenticates B on Msg)
+  1. Non-injective Agreement: Adds the requirement that A and B agree on specific data items (such as nonces and keys) and the roles they played.
+  2. Injective Agreement: The strongest form — adds a one-to-one relationship between the runs of A and B, preventing replay attacks where B believes multiple runs occurred corresponding to a single run by A. Equivalent to what OFMC/ProVerif verify as injective agreement.
 
 Secrecy:
   Confidentiality: An attacker cannot derive a protected term from intercepted messages. (e.g. A confidentially sends Msg to B, or A ->* B: Msg).
   Secrecy: An attacker cannot distinguish between protocol executions that differ only by their secret inputs (e.g, Msg secret between A,B)
 
+
 --- RULES ---
 - Analyze ONLY the listed goals. Never invent extra goals.
 - Use Dolev-Yao attacker assumptions (network control, no cryptographic breaks without keys).
 - For EVERY goal, output:
-  - status: satisfied, violated, or unknown
+  - status: "attack found" or "no attack"
+  - confidence: integer from 1 to 100 reflecting how certain you are in that verdict
   - justification: 2 to 6 sentences
   - two_session_trace: always present, exactly two sessions (Session 1 and Session 2)
 - Do not mention filenames, folders, or real protocol names. Refer only to protocol_id.
@@ -154,8 +153,9 @@ Schema:
     {{{{
       "goal_id": <int>,
       "goal": "<goal text>",
-      "status": "satisfied|violated|unknown",
-      "justification": "<2-6 sentences>",
+      "status": "attack found|no attack",
+      "confidence": <int 1-100>,
+      "justification": "<100 words>",
       "two_session_trace": "Session 1: ...\\nSession 2: ..."
     }}}}
   ]
@@ -172,9 +172,9 @@ GOALS:
 """.strip()
 
 
-# 
+
 # data classes
-# 
+
 @dataclass
 class ModelResult:
     model_name: str
@@ -191,13 +191,12 @@ class RuntimeSettings:
     openai_model: str
 
 
-# 
 # config helpers 
 # model selection helpers (requirement A) will use env vars first, then config.ini, then defaults. Config file is created if missing, with placeholders for keys and models. Models can be overridden in config or via env vars, but must not be left as placeholders.
 def script_config_path() -> Path:
     return Path(__file__).resolve().parent / "config.ini"
 
-#
+
 def ensure_config_ini(config_path: Path) -> None:
     if config_path.exists():
         return
@@ -212,7 +211,7 @@ def ensure_config_ini(config_path: Path) -> None:
     with open(config_path, "w", encoding="utf-8") as f:
         f.write(config_template)
 
-# sanitization helpers for config values and protocol text
+
 def sanitize_key(value: str) -> str:
     v = (value or "").strip()
     if not v:
@@ -221,7 +220,7 @@ def sanitize_key(value: str) -> str:
         return ""
     return v
 
-# consider a config value a placeholder if it's empty or looks like a placeholder (e.g. YOUR_KEY_HERE)
+
 def is_placeholder_model(value: str) -> bool:
     v = (value or "").strip()
     if not v:
@@ -230,14 +229,14 @@ def is_placeholder_model(value: str) -> bool:
         return True
     return False
 
-# fetch value from env var first, then config, with sanitization and stripping
+
 def env_or_config(env_name: str, config_value: str) -> str:
     env_val = os.getenv(env_name, "").strip()
     if env_val:
         return env_val
     return (config_value or "").strip()
 
-# load runtime settings, ensuring config file exists and values are sanitized
+
 def load_runtime_settings() -> RuntimeSettings:
     config_path = script_config_path()
     ensure_config_ini(config_path)
@@ -265,9 +264,9 @@ def load_runtime_settings() -> RuntimeSettings:
     )
 
 
-#
 # comment stripping helpers
 #strip block comments (/* */ and (* *)) and inline comments (//, #, %) while respecting string literals
+
 def strip_block_comments(text: str) -> str:
     text = re.sub(r"/\*.*?\*/", "", text, flags=re.DOTALL)
     text = re.sub(r"\(\*.*?\*\)", "", text, flags=re.DOTALL)
@@ -293,6 +292,7 @@ def strip_inline_comment(line: str) -> str:
     return line.rstrip()
 
 # strip all comments from text, both block and inline
+
 def strip_all_comments(text: str) -> str:
     text = strip_block_comments(text)
     out_lines: List[str] = []
@@ -305,9 +305,7 @@ def strip_all_comments(text: str) -> str:
     return "\n".join(out_lines)
 
 
-# 
 # protocol parsing helpers
-# keep in mind that goals are often listed in a section starting with "GOALS" and ending with "END GOALS" or the next section header, but sometimes they are just listed inline after "GOALS:" or at the end of the protocol. We want to be flexible in extracting them while avoiding false positives from other sections. Also, we want to preserve the order of goals and remove duplicates while maintaining their original phrasing as much as possible.
 def is_section_header(line: str) -> bool:
     upper = line.strip().upper().rstrip(":")
     if upper in SECTION_HEADERS:
@@ -357,7 +355,9 @@ def extract_goals(protocol_text_raw: str) -> List[str]:
             uniq.append(g)
     return uniq
 
-
+ # # replace any trace of the real file path or filename with the protocol ID.
+# without this the model sometimes leaks the real name into its JSON output
+# which breaks the truth comparison matching later.
 def anonymize_text_values(text: str, real_path: str, protocol_id: str) -> str:
     path_obj = Path(real_path)
     filename = path_obj.name
@@ -375,9 +375,6 @@ def anonymize_text_values(text: str, real_path: str, protocol_id: str) -> str:
 # separately so the model sees them as an explicit task list, not buried in protocol text.
 def sanitise_protocol_body(protocol_text_raw: str, real_path: str, protocol_id: str) -> str:
     text = strip_all_comments(protocol_text_raw)
-    # # replace any trace of the real file path or filename with the protocol ID.
-# without this the model sometimes leaks the real name into its JSON output
-# which breaks the truth comparison matching later.
     text = anonymize_text_values(text, real_path, protocol_id)
 
     out_lines: List[str] = []
@@ -425,8 +422,8 @@ def build_prompt(protocol_id: str, protocol_body: str, goals: Sequence[str]) -> 
     )
 
 
-# ---------------------------------------------------------------------------
 # JSON parsing and normalization helpers
+
 def safe_json_loads(maybe_json: str) -> Optional[Dict[str, Any]]:
     s = (maybe_json or "").strip()
     if not s:
@@ -455,40 +452,10 @@ def ensure_two_session_trace(trace: str) -> str:
         return trace
     return "Session 1: Not clearly provided by model.\nSession 2: Not clearly provided by model."
 
-# status normalization and export helpers - we want to be flexible in accepting various forms of satisfied/violated/unknown from the model, but we want to normalize them into a consistent internal representation for analysis and reporting. Also, when exporting results, we want to use "attack found" and "no attack" for better readability, while still allowing "unknown" to pass through.
-def normalize_status(value: str) -> str:
-    s = (value or "").strip().lower()
-    if s.startswith("sat"):
-        return "satisfied"
-    if s.startswith("vio") or s.startswith("fail"):
-        return "violated"
-    return "unknown"
-
-
-def export_status(value: str) -> str:
-    internal = normalize_status(value)
-    if internal == "violated":
-        return "attack found"
-    if internal == "satisfied":
-        return "no attack"
-    return "unknown"
-
-
-def normalize_attack_label(value: str) -> str:
-    s = (value or "").strip().lower()
-    if s == "attack found":
-        return "attack found"
-    if s == "no attack":
-        return "no attack"
-    if s == "unknown":
-        return "unknown"
-    return export_status(s)
-
 # sentence splitting helper for justification analysis - we want to be flexible in accepting various forms of justification from the model, but we want to split them into sentences for analysis.
 def split_sentences(text: str) -> List[str]:
     parts = re.split(r"(?<=[.!?])\s+", text.strip())
     return [p for p in parts if p.strip()]
-
 
 
 # Timeout / error helpers
@@ -506,7 +473,7 @@ def build_openai_timeout() -> Any:
     except Exception:
         return PER_MODEL_REQUEST_TIMEOUT_SECONDS
 
-#
+
 def short_error(exc: Exception) -> str:
     msg = str(exc).strip()
     if msg:
@@ -528,6 +495,7 @@ def get_status_code(exc: Exception) -> Optional[int]:
 
 #permanent auth errors = no retries
 #temporary quota errors = disable provider with no retries
+
 def is_permanent_auth_error(exc: Exception) -> bool:
     code = get_status_code(exc)
     if code in {400, 401, 403}:
@@ -543,7 +511,7 @@ def is_permanent_auth_error(exc: Exception) -> bool:
     ]
     return any(token in msg for token in auth_tokens)
 
-#
+
 def is_quota_error(exc: Exception) -> bool:
     code = get_status_code(exc)
     if code == 402:
@@ -566,6 +534,7 @@ def is_quota_error(exc: Exception) -> bool:
     return False
 
 #in case no error fallback method 
+
 def is_model_not_found_error(exc: Exception) -> bool:
     code = get_status_code(exc)
     if code == 404:
@@ -581,6 +550,7 @@ def is_model_not_found_error(exc: Exception) -> bool:
     ])
 
 #temporary busy server = try fallback or retry
+
 def is_server_overload_error(exc: Exception) -> bool:
     code = get_status_code(exc)
     if code == 503:
@@ -669,22 +639,27 @@ def normalize_analysis(
 
     analysis: List[Dict[str, Any]] = []
     for idx, goal in enumerate(goals, start=1):
-        #empty dict for no response
         item = by_goal.get(idx, {})
-        status = normalize_status(str(item.get("status", "unknown")))
+        raw_status = str(item.get("status", "")).strip().lower()
+        status = raw_status if raw_status in ("attack found", "no attack") else "no attack"
         justification = str(item.get("justification", "")).strip()
 
+        try:
+            confidence = int(item.get("confidence", 0))
+            if confidence < 0 or confidence > 100:
+                confidence = 0
+        except (TypeError, ValueError):
+            confidence = 0
+
         if fallback_reason:
-            #if provider fails = oveeride = error as just
-            status = "unknown"
+            status = "no attack"
+            confidence = 0
             justification = fallback_reason
         else:
             if not justification:
                 justification = "Model response did not include a usable justification."
 
             sent_count = len(split_sentences(justification))
-            #short justification enough context in file 
-            ##long justification = trimmed to keep readable
             if sent_count < 2:
                 justification = (
                     justification
@@ -699,6 +674,7 @@ def normalize_analysis(
                 "goal_id": idx,
                 "goal": goal,
                 "status": status,
+                "confidence": confidence,
                 "justification": justification,
                 "two_session_trace": ensure_two_session_trace(str(item.get("two_session_trace", ""))),
             }
@@ -717,7 +693,7 @@ def resolve_openai_model(client: OpenAI, configured_model: str) -> Tuple[str, st
         candidates.append(configured_model)
     candidates.extend(m for m in OPENAI_REASONING_MODELS if m not in candidates)
 
-    # validate models agaisnt what account has access to 
+        # validate models agaisnt what account has access to 
     # some accounts may not have listing access
     # so if listing fails = try candidates and let the runner handle 404 fallback
     available_ids: set = set()
@@ -725,24 +701,22 @@ def resolve_openai_model(client: OpenAI, configured_model: str) -> Tuple[str, st
         model_list = client.models.list()
         available_ids = {m.id for m in model_list}
     except Exception:
-        pass # listing fails = fallback to trying candidates and let runner handle 404 if not found
+        pass
 
     if available_ids:
         for candidate in candidates:
             if candidate in available_ids:
-                # which model picked and why = useful for debugging and analysis, especially if fallback used
                 note = "validated" if candidate == candidates[0] else f"fallback (validated from model list)"
                 return candidate, note
 
-    # no validation possible return 1st model and let 404 handler in
-    #if model string invalid = _try_model will handle
+    # No listing or no match—try candidates by making a lightweight ping
+    # Just return the first candidate and let the runner handle 404 fallback
     return candidates[0], "selected (not validated via listing)"
 
 
 def resolve_deepseek_model(configured_model: str) -> Tuple[str, str]:
-    #not sure about deepseek model listing endpoint so skipped 
+        #not sure about deepseek model listing endpoint so skipped 
     #validation + trust config 
-    #
     """DeepSeek doesn't reliably support model listing; use configured or default."""
     if configured_model and not is_placeholder_model(configured_model):
         return configured_model, "configured"
@@ -754,9 +728,10 @@ def resolve_deepseek_model(configured_model: str) -> Tuple[str, str]:
 #baserunner = fallback
 #deepseek runner and openai runner implement actual calls, with error handling and fallback logic. Each runner handles its own model selection and retries, and returns a ModelResult with the raw response and the normalized analysis. If a runner is disabled due to quota or auth errors, it will return an unknown result with the reason for disablement in the justification.
 class BaseRunner:
-    # shared diasbae mechanism, once called returns without hitting api
+        # shared diasbae mechanism, once called returns without hitting api
     #used for quota and auth failures
     #assumed retrying will maybe cost more money and keep failing so no point 
+
     name = "Base"
     disabled = False
     disabled_reason = ""
@@ -767,9 +742,9 @@ class BaseRunner:
         print(f"[!] PROVIDER DISABLED: {self.name} — {reason}")
 
     def analyse(self, prompt: str, protocol_id: str, goals: Sequence[str]) -> ModelResult:
-        # if disabled = return unknown with reason, no api call
-        # runs if runner added and implement analyse() forgotten
         if self.disabled:
+                    # if disabled = return unknown with reason, no api call
+        # runs if runner added and implement analyse() forgotten
             parsed = normalize_analysis(
                 self.name, protocol_id, goals, None,
                 f"Provider {self.name} disabled: {self.disabled_reason}",
@@ -781,7 +756,8 @@ class BaseRunner:
 
 class DeepSeekRunner(BaseRunner):
     name = "DeepSeek"
-    #deepseek uses openai but different base url
+#deepseek uses openai but different base url
+
     def __init__(self, api_key: str, model_config: str, mode: str = "reasoning"):
         self.api_key = (api_key or "").strip()
         self.mode = mode
@@ -797,7 +773,7 @@ class DeepSeekRunner(BaseRunner):
             print(f"  [DeepSeek] Model: {self.model} (mode={self.mode})")
         else:
             print(f"  [DeepSeek] No API key set — will output unknown")
-    # low temp keeps responses consistent 
+
     def _call_model(self, prompt: str, model: str) -> str:
         response = self.client.chat.completions.create(
             model=model,
@@ -824,23 +800,18 @@ class DeepSeekRunner(BaseRunner):
         self.model = preferred[0]
         self.fallback_models = preferred[1:]
         models_to_try = [self.model] + self.fallback_models
-        ##try each model in order, if model-not-found or overload error try next, if quota or auth error disable provider, if other error retry with backoff, if retries exhausted return unknown with reason
         for model_candidate in models_to_try:
             result = self._try_model(prompt, protocol_id, goals, model_candidate)
             if result is not None:
                 return result
-            # If we get here, model-not-found= try next
+            # If we get here, model-not-found; try next
 
         print(f"  [!] {self.name}: all model candidates exhausted for {protocol_id}, will retry next protocol")
         parsed = normalize_analysis(self.name, protocol_id, goals, None,
                                     f"All {self.name} model candidates failed.")
         return ModelResult(self.name, "", parsed, model_variant=f"{self.name} ({self.mode}, all models failed)")
-    
-    #ai failed = possibly temporary =next protocol try again from top of list 
-
-
+ #ai failed = possibly temporary =next protocol try again from top of list 
     def _try_model(self, prompt: str, protocol_id: str, goals: Sequence[str], model: str) -> Optional[ModelResult]:
-        # none returned to signal next model or modelresult to show this procider limit reached for this protocol
         total_attempts = 1 + PER_MODEL_MAX_RETRIES
         for attempt in range(1, total_attempts + 1):
             print(f"  START model={self.name}({model}) protocol={protocol_id} attempt={attempt}")
@@ -901,7 +872,7 @@ class OpenAIRunner(BaseRunner):
             print(f"  [GPT] No API key set — will output unknown")
 
     def _call_model(self, prompt: str, model: str) -> str:
-        # gpt does not use temp but reasoning effort paramaters
+        # Reasoning mode or explicit reasoning model names use reasoning_effort, not temperature
         is_reasoning = self.mode == "reasoning" or model.startswith(("gpt-5.2-thinking", "gpt-5.2-pro", "o1", "o3"))
         kwargs: Dict[str, Any] = {
             "model": model,
@@ -988,27 +959,26 @@ class OpenAIRunner(BaseRunner):
 
 
 # file collection 
-#
+
 def collect_files(inputs: Sequence[str], recursive: bool, exts: Optional[Sequence[str]]) -> List[str]:
-    # if no ext = default to anb and anbx 
-    # normalise extensions to lowercase so both resolve to same thing 
+    # normalise extensions to lowercase so both resolve to same thing
     ext_list = list(exts) if exts else ["anb", "anbx"]
     norm_exts = {f".{e.lower().lstrip('.')}" for e in ext_list}
 
     collected: List[str] = []
     for item in inputs:
-        # resolve to path object, expand ~ and resolve to absolute path, strip quotes in case input is quoted
-
+            # resolve to path object, expand ~ and resolve to absolute path, strip quotes in case input is quoted
         path = Path(str(item).strip().strip('"').strip("'"))
         path = path.expanduser().resolve()
 
         if path.is_file() and path.suffix.lower() in norm_exts:
             collected.append(str(path))
             continue
-        #
+
         if path.is_dir():
-            # sorted() = consistent file order for each protocol
+                        # sorted() = consistent file order for each protocol
             #numbering = predictable and reproducible results, helps with debugging and analysis, especially if model responses vary by file order
+
             iterator = path.rglob("*") if recursive else path.glob("*")
             for p in sorted(iterator):
                 if p.is_file() and p.suffix.lower() in norm_exts:
@@ -1016,7 +986,7 @@ def collect_files(inputs: Sequence[str], recursive: bool, exts: Optional[Sequenc
             continue
 
         print(f"[!] Skipping unknown path: {path}")
-    # remv duplicates while keeping order in case duplicates exist in same file 
+ # remv duplicates while keeping order in case duplicates exist in same file 
     # 
     seen = set()
     out: List[str] = []
@@ -1035,14 +1005,14 @@ def read_text_file(path: str) -> str:
 # reuslts builder for if timeout happens 
 #placeholder results = consistent output 
 def timeout_result_for_model(model_name: str, protocol_id: str, goals: Sequence[str], reason: str) -> ModelResult:
-    # goal is given clear timeout reason 
+        # goal is given clear timeout reason 
     # reason for lack of analysis 
-
     analysis = [
         {
             "goal_id": idx,
             "goal": goal,
-            "status": "unknown",
+            "status": "no attack",
+            "confidence": 0,
             "justification": reason,
             "two_session_trace": ensure_two_session_trace(""),
         }
@@ -1060,7 +1030,6 @@ def timeout_results(protocol_id: str, goals: Sequence[str], reason: str) -> List
 # ---------------------------------------------------------------------------
 # Parallel model execution
 # ---------------------------------------------------------------------------
-# runs models in parralel for each protocol and collect results
 def run_models_parallel(
     runners: Sequence[BaseRunner],
     prompt: str,
@@ -1077,8 +1046,9 @@ def run_models_parallel(
     started = time.monotonic()
     deadline = started + total_timeout
 
-    # skip disabled runners
+        # skip disabled runners
     # if all runners disabled = return timeout results for all models to keep output consistent and clear that no providers were active, rather than showing missing results which could be confusing
+
     active_runners = [r for r in runners if not r.disabled]
     disabled_runners = [r for r in runners if r.disabled]
     for r in disabled_runners:
@@ -1108,10 +1078,10 @@ def run_models_parallel(
                 timeout_hit = True
                 timed_out_models = {future_map[f] for f in pending}
                 break
-
-            #cap wait at heartbeat can print progress 
+                            #cap wait at heartbeat can print progress 
             #every 15sec
             #first_completed = collect each result as it comes instead of waiting till everything completed 
+
             done, pending = wait(
                 pending,
                 timeout=min(HEARTBEAT_INTERVAL_SECONDS, max(0.0, remaining)),
@@ -1159,7 +1129,7 @@ def run_models_parallel(
             pool.shutdown(wait=False, cancel_futures=True)
         else:
             pool.shutdown(wait=False, cancel_futures=False)
-    # gap fill anything not in by_name usually happens in timeout 
+
     for name in MODEL_ORDER:
         if name in by_name:
             continue
@@ -1173,11 +1143,11 @@ def run_models_parallel(
                 parsed=None,
                 fallback_reason=f"Model result missing for {name}.",
             )
-            #shouldnt really happen unless model runner code has a bug or unexpected error, but just in case to avoid missing results and make it clear in output what happened, fill with unknown and reason for missing
             by_name[name] = ModelResult(model_name=name, raw_response_text="", parsed_response=parsed,
                                         model_variant=f"{name} (missing)")
 
     return [by_name[name] for name in MODEL_ORDER], timeout_hit
+
 
 # CSV / audit helpers
 # #reindex model list by goal_id integer so csv writer
@@ -1197,16 +1167,12 @@ def analysis_by_goal(raw: Dict[str, Any]) -> Dict[int, Dict[str, Any]]:
 
 
 def truncate_text(text: str, max_chars: int = RAW_RESPONSE_MAX_CHARS) -> str:
-    #full responses go in json
-    #will flag in csv if response too long 
     t = (text or "").strip()
     if len(t) <= max_chars:
         return t
     return t[:max_chars] + "... [truncated]"
 
 
-#column order in every csv this script produces 
-#dictwriter uses list for header and row validation 
 CSV_FIELDNAMES = [
     "timestamp_start_overall",
     "timestamp_end_overall",
@@ -1221,6 +1187,7 @@ CSV_FIELDNAMES = [
     "goal_id",
     "goal_text",
     "status",
+    "confidence",
     "justification",
     "two_session_trace",
     "raw_response_text",
@@ -1228,7 +1195,6 @@ CSV_FIELDNAMES = [
 
 
 def init_csv(out_path: str) -> None:
-    #called once before main loop 
     """Write CSV header once."""
     with open(out_path, "w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=CSV_FIELDNAMES)
@@ -1242,8 +1208,6 @@ def append_protocol_csv(
     end_iso: str,
     overall_runtime_seconds: float,
 ) -> None:
-    #one row per goal per model 
-    #lookup maps built so inner loop not searching through lists 
     """Append rows for one protocol and flush."""
     goals = row_data["goals_raw"]
     result_map = {result.model_name: analysis_by_goal(result.parsed_response) for result in row_data["results"]}
@@ -1269,13 +1233,14 @@ def append_protocol_csv(
                         "model_variant": variant_map.get(model_name, ""),
                         "goal_id": gid,
                         "goal_text": goal,
-                        "status": export_status(str(item.get("status", "unknown"))),
+                        "status": str(item.get("status", "no attack")),
+                        "confidence": item.get("confidence", 0),
                         "justification": str(item.get("justification", "")).strip(),
                         "two_session_trace": ensure_two_session_trace(str(item.get("two_session_trace", ""))),
                         "raw_response_text": raw_text_map.get(model_name, ""),
                     }
                 )
-        f.flush() #ensure data written to disk after each protocol, helps with crash safety and allows partial results to be available even if script interrupted
+        f.flush()
 
 #full record including promp and response 
 #one json line each protocol so partial files still readable 
@@ -1289,9 +1254,8 @@ def append_audit_jsonl(out_path: str, audit_entry: Dict[str, Any]) -> None:
 # truth comparison 
 #reads output and compares manually 
 #up to three truth files
-
 def normalize_protocol_match_key(name: str, stem_only: bool) -> str:
-    #reduces protocl name to lowercase so different formatting between files do not cause matches 
+        #reduces protocl name to lowercase so different formatting between files do not cause matches 
     base = Path(str(name or "").strip()).name
     if stem_only:
         base = Path(base).stem
@@ -1309,7 +1273,7 @@ def normalize_goal_text_key(text: str) -> str:
     s = re.sub(r"[^a-z0-9 ]+", "", s)
     return s.strip()
 
-#minimal cleaning of truth verdict to preserve original wording as possible dont want to alter anything 
+#minimal cleaning of truth verdict to preserve original wording as possible dont want to alter anything
 def clean_truth_verdict(value: str) -> str:
     """Minimal safe cleaning only: strip whitespace, collapse internal whitespace.
     Preserve original wording and casing."""
@@ -1328,7 +1292,6 @@ def detect_column(headers: Sequence[str], candidates: Sequence[str]) -> Optional
 
 #handle comparison files where goal id and text share column 
 #if value is integer treated as id or text
-
 def extract_goal_id_text(
     row: Dict[str, Any],
     goal_id_col: Optional[str],
@@ -1352,7 +1315,7 @@ def extract_goal_id_text(
 
 VERDICT_CANDIDATES = ["attack", "status", "result", "verdict", "outcome", "decision", "label"]
 
-#extra precautions in how the files name goal ids 
+#extra precautions in how the files name goal ids
 def extract_truth_protocol_base_and_goal(raw_name: str) -> Tuple[str, str]:
     """Split a truth protocol name like 'AnBx_BlindForwarding_01' into
     base name 'AnBx_BlindForwarding' and goal id '1' (leading zeros stripped).
@@ -1383,15 +1346,15 @@ def parse_truth_csv(path: str) -> List[Dict[str, str]]:
 
         for row in reader:
             protocol_name_raw = str(row.get(protocol_col, "")).strip()
-            # verbatim copy of verdict — minimal cleaning only
+            # Verbatim copy of verdict — minimal cleaning only
             status = clean_truth_verdict(str(row.get(status_col, "")))
             goal_id, goal_text = extract_goal_id_text(row, goal_id_col, goal_text_col)
 
-            # split protocol name suffix into base + goal id if applicable
+            # Split protocol name suffix into base + goal id if applicable
             base_name, suffix_goal_id = extract_truth_protocol_base_and_goal(protocol_name_raw)
-            # use the base name as the protocol name for matching
+            # Use the base name as the protocol name for matching
             protocol_name = base_name if suffix_goal_id else protocol_name_raw
-            # if no explicit goal_id was found from the goal_id column, use the suffix
+            # If no explicit goal_id was found from the goal_id column, use the suffix
             if not goal_id and suffix_goal_id:
                 goal_id = suffix_goal_id
 
@@ -1450,7 +1413,7 @@ def parse_truth_json(path: str) -> List[Dict[str, str]]:
         status = clean_truth_verdict(str(row.get(status_col, "")))
         goal_id, goal_text = extract_goal_id_text(row, goal_id_col, goal_text_col)
 
-        # split protocol name suffix into base + goal id if applicable
+        # Split protocol name suffix into base + goal id if applicable
         base_name, suffix_goal_id = extract_truth_protocol_base_and_goal(protocol_name_raw)
         protocol_name = base_name if suffix_goal_id else protocol_name_raw
         if not goal_id and suffix_goal_id:
@@ -1471,9 +1434,6 @@ def parse_truth_json(path: str) -> List[Dict[str, str]]:
 
 
 def parse_truth_file(path: str) -> Dict[str, Any]:
-    #four lookup paths per protocol 
-#four paths because ai output and comp file may differ 
-#
     p = Path(path)
     ext = p.suffix.lower()
     if ext == ".csv":
@@ -1517,8 +1477,7 @@ def parse_truth_file(path: str) -> Dict[str, Any]:
         "stem_map": stem_map,
     }
 
-# loookup function for each goal in ai output
-#tries exact match with protocol name including goal id suffix first, then stem-only match, and within each tries goal id match first then goal text match, returns verbatim status if found or blank if no match
+
 def lookup_truth_status(
     truth_source: Dict[str, Any],
     protocol_name: str,
@@ -1566,7 +1525,7 @@ def run_truth_comparison(
     truth_sources = [parse_truth_file(p) for p in truth_paths]
     truth_result_cols = [f"{src['basename']}_result" for src in truth_sources]
 
-    # collect protocols and goals from ai csv
+    # # collect protocols and goals from ai csv
     protocols: Dict[str, Dict[str, Any]] = {}
     for row in ai_rows:
         protocol_name = row.get("protocol_name", "").strip()
@@ -1586,7 +1545,6 @@ def run_truth_comparison(
                 "goals": {},
             },
         )
-        #handle cases where two goals share same id or same text not both
         gkey = f"{goal_id}::{goal_text}"
         if gkey not in proto["goals"]:
             proto["goals"][gkey] = {
@@ -1642,7 +1600,7 @@ def run_truth_comparison(
 
                 writer.writerow(row_out)
 
-    # optional HTML
+    # optional html
     if comparison_html_out:
         _generate_comparison_html(comparison_csv_out, comparison_html_out, fieldnames, truth_result_cols)
 
@@ -1691,13 +1649,11 @@ def _generate_comparison_html(csv_path: str, html_path: str, fieldnames: List[st
 # 
 # CLI --run with --help to see options
 #with comparison add --truth-files
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Batch AnB/AnBx protocol checker with anonymized LLM analysis "
                     "(CSV output, per-protocol timeout, incremental writes)."
     )
-    #
     parser.add_argument("inputs", nargs="+", help="Input files and/or folders.")
     parser.add_argument("--recursive", action="store_true", help="Recurse into input directories.")
     parser.add_argument("--ext", nargs="*", default=None, help="Extensions to include (default: anb anbx).")
@@ -1725,14 +1681,13 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-
 # Main
 # 
 def main() -> None:
     args = parse_args()
 
-    # interactive mode selection 
-    #change MODEL_MODE variable if you want hardcode 
+        # interactive mode selection 
+    #change MODEL_MODE variable if you want hardcode
     print("Select model mode:")
     print("  1 = Chat models (faster, lower cost)")
     print("  2 = Reasoning models (slower, higher quality)")
@@ -1751,7 +1706,7 @@ def main() -> None:
     # stage: loading configuration
     print("[stage] loading configuration / selecting models")
     settings = load_runtime_settings()
-    #wall clock in csv timestamps
+
     start_ts = datetime.now()
     start_iso = start_ts.isoformat(timespec="seconds")
 
@@ -1765,14 +1720,14 @@ def main() -> None:
 
     # stage: initializing runners (model selection happens here)
     print("[stage] initializing runners")
-    #runners used across all protocols
-    #resets to primary model at start of protocol
     runners: List[BaseRunner] = [
+            #runners used across all protocols
+    #resets to primary model at start of protocol
         DeepSeekRunner(api_key=settings.deepseek_api_key, model_config=settings.deepseek_model, mode=MODEL_MODE),
         OpenAIRunner(api_key=settings.openai_api_key, model_config=settings.openai_model, mode=MODEL_MODE),
     ]
 
-    # initialize incremental CSV
+      # initialize incremental CSV
     #happens before loop
     print("[stage] writing outputs (initializing CSV)")
     init_csv(args.out)
@@ -1810,7 +1765,7 @@ def main() -> None:
         )
 
         # stage: running models
-        #timout includes whole protocol not api calls only
+        ##timout includes whole protocol not api calls only
         print(f"[stage] running models for {protocol_id}")
         elapsed_before_models = time.monotonic() - protocol_start_perf
         remaining_time = max(0.0, PER_PROTOCOL_TIMEOUT_SECONDS - elapsed_before_models)
@@ -1860,7 +1815,7 @@ def main() -> None:
             "protocol_timeout_hit": protocol_timeout_hit,
         }
 
-        # incremental csv write
+         # incremental csv write
         #write to csv immediately so crash doesnt lose all the work
         end_ts_current = datetime.now()
         append_protocol_csv(
@@ -1895,7 +1850,7 @@ def main() -> None:
                 ],
             }
             append_audit_jsonl(args.json_out, audit_entry)
-        #extra nice to have for summary of that run 
+
         protocol_rows_summary.append(
             {
                 "protocol_id": protocol_id,
@@ -1918,7 +1873,8 @@ def main() -> None:
     print(f"    Overall runtime (seconds): {overall_runtime_seconds}")
     print(f"    Protocols hit per-protocol timeout: {timeout_protocol_count}")
 
-    # --- write _summary.txt report ---
+    #extra nice to have for summary of that run 
+
     if protocol_rows_summary:
         runtimes = [r["runtime_seconds"] for r in protocol_rows_summary]
         avg_runtime = sum(runtimes) / len(runtimes)
@@ -1961,7 +1917,7 @@ def main() -> None:
         f.write("\n".join(summary_lines) + "\n")
 
     print(f"[+] Summary file written: {summary_path}")
-    #scopr of project includes three comparison files no need to include more 
+
     if args.truth_files:
         if len(args.truth_files) > 3:
             print("[!] Warning: more than 3 truth files provided; using first 3.")
