@@ -43,6 +43,9 @@ DEEPSEEK_REASONING_MODELS = [
     "deepseek-chat",
 ]
 OPENAI_CHAT_MODELS = [
+    "gpt-5.3-chat-latest",
+    "gpt-5.4-mini",
+    "gpt-5.4-nano",
     "gpt-5.2",
     "gpt-5.2-chat-latest",
     "gpt-4o",
@@ -51,10 +54,10 @@ OPENAI_CHAT_MODELS = [
     "gpt-4",
 ]
 OPENAI_REASONING_MODELS = [
+    "gpt-5.4",
+    "gpt-5.4-pro",
     "gpt-5.2-thinking",
     "gpt-5.2-pro",
-    "gpt-5.2",
-    "gpt-5.2-chat-latest",
     "o3",
     "o1",
 ]
@@ -78,8 +81,8 @@ SECTION_HEADERS = {
 
 # Configurable timeout / retry constants (requirement B)
 #generous timeout limits, reasoning models take time (tried and tested)
-PER_MODEL_REQUEST_TIMEOUT_SECONDS = 480.0
-PER_PROTOCOL_TIMEOUT_SECONDS = 540.0
+PER_MODEL_REQUEST_TIMEOUT_SECONDS = 900.0
+PER_PROTOCOL_TIMEOUT_SECONDS = 1200.0
 PER_MODEL_MAX_RETRIES = 2
 HEARTBEAT_INTERVAL_SECONDS = 15.0
 RAW_RESPONSE_MAX_CHARS = 2000
@@ -775,15 +778,18 @@ class DeepSeekRunner(BaseRunner):
             print(f"  [DeepSeek] No API key set — will output unknown")
 
     def _call_model(self, prompt: str, model: str) -> str:
-        response = self.client.chat.completions.create(
-            model=model,
-            messages=[
+        kwargs: Dict[str, Any] = {
+            "model": model,
+            "messages": [
                 {"role": "system", "content": "Return JSON only. No markdown."},
                 {"role": "user", "content": prompt},
             ],
-            temperature=0.1,
-            stream=False,
-        )
+            "stream": False,
+        }
+        # deepseek-reasoner does not support temperature, top_p, presence_penalty, frequency_penalty
+        if model != "deepseek-reasoner":
+            kwargs["temperature"] = 0.1
+        response = self.client.chat.completions.create(**kwargs)
         return getattr(response.choices[0].message, "content", "") or ""
     #reset to primary model on every call 
     # no inheriting fallback model from previous protocol
@@ -859,6 +865,9 @@ class DeepSeekRunner(BaseRunner):
 class OpenAIRunner(BaseRunner):
     name = "GPT"
 
+    # models that use the responses API with reasoning; all others use chat completions
+    RESPONSES_API_MODELS = {"gpt-5.4", "gpt-5.4-pro", "gpt-5.2-thinking", "gpt-5.2-pro", "o3", "o1"}
+
     def __init__(self, api_key: str, model_config: str, mode: str = "reasoning"):
         self.api_key = (api_key or "").strip()
         self.mode = mode
@@ -872,22 +881,29 @@ class OpenAIRunner(BaseRunner):
             print(f"  [GPT] No API key set — will output unknown")
 
     def _call_model(self, prompt: str, model: str) -> str:
-        # Reasoning mode or explicit reasoning model names use reasoning_effort, not temperature
-        is_reasoning = self.mode == "reasoning" or model.startswith(("gpt-5.2-thinking", "gpt-5.2-pro", "o1", "o3"))
-        kwargs: Dict[str, Any] = {
-            "model": model,
-            "messages": [
-                {"role": "system", "content": "Return JSON only. No markdown."},
-                {"role": "user", "content": prompt},
-            ],
-            "stream": False,
-        }
-        if is_reasoning:
-            kwargs["reasoning_effort"] = "high"
+        if model in self.RESPONSES_API_MODELS:
+            # GPT reasoning models use the responses API
+            response = self.client.responses.create(
+                model=model,
+                input=[
+                    {"role": "system", "content": "Return JSON only. No markdown."},
+                    {"role": "user", "content": prompt},
+                ],
+                reasoning={"effort": "high"},
+            )
+            return response.output_text or ""
         else:
-            kwargs["temperature"] = 0.1
-        response = self.client.chat.completions.create(**kwargs)
-        return getattr(response.choices[0].message, "content", "") or ""
+            # GPT chat models use the chat completions API
+            response = self.client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": "Return JSON only. No markdown."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.1,
+                stream=False,
+            )
+            return getattr(response.choices[0].message, "content", "") or ""
 
     def analyse(self, prompt: str, protocol_id: str, goals: Sequence[str]) -> ModelResult:
         if self.disabled:
@@ -1259,6 +1275,7 @@ def normalize_protocol_match_key(name: str, stem_only: bool) -> str:
     base = Path(str(name or "").strip()).name
     if stem_only:
         base = Path(base).stem
+    base = re.sub(r'[_\-](AnBx|AnB)$', '', base, flags=re.IGNORECASE)
     s = base.lower().strip()
     s = re.sub(r"[\s_-]+", "-", s)
     s = re.sub(r"[^a-z0-9.\-]+", "", s)
@@ -1525,7 +1542,7 @@ def run_truth_comparison(
     truth_sources = [parse_truth_file(p) for p in truth_paths]
     truth_result_cols = [f"{src['basename']}_result" for src in truth_sources]
 
-    # # collect protocols and goals from ai csv
+    # collect protocols and goals from ai csv, including confidence
     protocols: Dict[str, Dict[str, Any]] = {}
     for row in ai_rows:
         protocol_name = row.get("protocol_name", "").strip()
@@ -1533,7 +1550,8 @@ def run_truth_comparison(
         goal_id = row.get("goal_id", "").strip()
         goal_text = row.get("goal_text", "").strip()
         model = row.get("model_name", "").strip()
-        status = row.get("status", "").strip()  # AI exported as-is
+        status = row.get("status", "").strip()
+        confidence = row.get("confidence", "").strip()
 
         if not protocol_name:
             continue
@@ -1551,9 +1569,11 @@ def run_truth_comparison(
                 "goal_id": goal_id,
                 "goal_text": goal_text,
                 "models": {m: "" for m in MODEL_ORDER},
+                "confidences": {m: "" for m in MODEL_ORDER},
             }
         if model in MODEL_ORDER:
             proto["goals"][gkey]["models"][model] = status
+            proto["goals"][gkey]["confidences"][model] = confidence
 
     protocol_names_sorted = sorted(protocols.keys(), key=lambda x: x.lower())
     fieldnames = [
@@ -1562,7 +1582,9 @@ def run_truth_comparison(
         "goal_id",
         "goal_text",
         "DeepSeek_result",
+        "DeepSeek_confidence",
         "GPT_result",
+        "GPT_confidence",
     ] + truth_result_cols
 
     total_goal_rows = 0
@@ -1591,7 +1613,9 @@ def run_truth_comparison(
                     "goal_id": g["goal_id"],
                     "goal_text": g["goal_text"],
                     "DeepSeek_result": g["models"]["DeepSeek"],
+                    "DeepSeek_confidence": g["confidences"]["DeepSeek"],
                     "GPT_result": g["models"]["GPT"],
+                    "GPT_confidence": g["confidences"]["GPT"],
                 }
 
                 for src in truth_sources:
