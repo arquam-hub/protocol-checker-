@@ -1,0 +1,53 @@
+protocol_name,protocol_id,goal_id,goal_text,DeepSeek_result,DeepSeek_confidence,GPT_result,GPT_confidence,results-single-anb-typed-sessions_1-depth_0-2022-PCM.csv_result,results-single-anb-typed-sessions_2-depth_0-2022-PCM.csv_result,results-single-pv-typed-205-PCM.csv_result
+Amended_NSCK_AnB.AnBx,PROTO_0001,1,A1 authenticates A2 on N5,no attack,95,no attack,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,2,A2 authenticates A1 on N5,no attack,95,no attack,84,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,3,"N5 secret between A1,A2",attack found,100,no attack,94,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,4,A2 *->* A1: N5,attack found,100,no attack,89,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,5,A1 authenticates a3 on K7,no attack,100,no attack,96,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,6,A2 authenticates a3 on K7,no attack,100,no attack,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_BlindForwarding_AnB.AnBx,PROTO_0002,1,"A1 weakly authenticates A2 on ccn(A2,A1)",attack found,95,no attack,91,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_BlindForwarding_AnB.AnBx,PROTO_0002,2,"ccn(A2,A1) secret between A2,A1",no attack,85,no attack,89,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AndrewSecureRPC_AnB.AnBx,PROTO_0003,1,A2 *->* A1: N5,attack found,90,attack found,82,NO_ATTACK,ATTACK,ATTACK
+AndrewSecureRPC_AnB.AnBx,PROTO_0003,2,A1 authenticates A2 on N5,attack found,90,attack found,90,NO_ATTACK,ATTACK,ATTACK
+AndrewSecureRPCSecrecy_AnB.AnBx,PROTO_0004,1,A2 ->* A1: N5,no attack,95,no attack,97,NO_ATTACK,NO_ATTACK,
+Basic_Kerberos_AnB.AnBx,PROTO_0005,1,a4 *->* A1: N7,attack found,90,no attack,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Bilateral_Key_Exchange_AnB.AnBx,PROTO_0006,1,A2 authenticates A1 on K5,no attack,90,no attack,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0007,1,"A3 weakly authenticates A1 on N9,N5",no attack,95,no attack,82,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0007,2,"A3 weakly authenticates A2 on N10,N6",no attack,95,no attack,84,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0007,3,"N9,N10 secret between A3,A1,A2",no attack,90,no attack,91,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0007,4,"A3 weakly authenticates [A1] on N9,N5,N10,N6",no attack,90,no attack,83,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0007,5,"A3 weakly authenticates [A1] on N9,N5",no attack,95,no attack,88,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0007,6,A3 weakly authenticates [A1] on P17,no attack,95,no attack,86,NO_ATTACK,,NO_ATTACK
+DenningSacco_AnB.AnBx,PROTO_0008,1,A1 *->* A2: K10,attack found,80,no attack,78,NO_ATTACK,ATTACK,ATTACK
+DenningSaccoCorr_AnB.AnBx,PROTO_0009,1,"K10 secret between A1,A2",no attack,95,no attack,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+DenningSaccoCorr_AnB.AnBx,PROTO_0009,2,A2 weakly authenticates A1 on K10,no attack,90,no attack,82,NO_ATTACK,NO_ATTACK,NO_ATTACK
+DH_AnB.AnBx,PROTO_0010,1,A2 authenticates A1 on N3,no attack,90,no attack,89,NO_ATTACK,NO_ATTACK,
+DH_AnB.AnBx,PROTO_0010,2,"N3 secret between A1,A2",no attack,95,no attack,92,NO_ATTACK,NO_ATTACK,
+emv_visa_k3_AnB.AnBx,PROTO_0011,1,"a3 weakly authenticates A1 on N7,N4,fcnUnpred(A2,fcnPDOL(A1,n16)),N9,N5,N6,fcnSeqNo(A1,n16)",no attack,85,no attack,90,ATTACK,ATTACK,NO_ATTACK
+Fresh_From_A_Secret_AnB.AnBx,PROTO_0012,1,"N3 secret between A1,A2",no attack,95,no attack,94,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_Secret_AnB.AnBx,PROTO_0012,2,A2 authenticates A1 on N3,no attack,90,no attack,91,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_Secret_AnB.AnBx,PROTO_0012,3,inv(pk(A1)) secret between A1,no attack,100,no attack,98,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_Secret_AnB.AnBx,PROTO_0012,4,inv(sk(A1)) secret between A1,no attack,100,no attack,97,NO_ATTACK,NO_ATTACK,NO_ATTACK
+H530_AnB.AnBx,PROTO_0013,1,A2 authenticates A1 on N4,no attack,90,no attack,86,NO_ATTACK,ATTACK,ATTACK
+H530_AnB.AnBx,PROTO_0013,2,"N4 secret between A1,A2",no attack,95,no attack,93,NO_ATTACK,ATTACK,ATTACK
+H530fix_AnB.AnBx,PROTO_0014,1,A1 *->* A2: N4,no attack,90,no attack,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+H530fix_AnB.AnBx,PROTO_0014,2,A2 authenticates A1 on N4,no attack,90,no attack,84,NO_ATTACK,NO_ATTACK,NO_ATTACK
+H530fix_AnB.AnBx,PROTO_0014,3,"N4 secret between A1,A2",no attack,95,no attack,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Insecure_AnB.AnBx,PROTO_0015,1,A1 -> A2: N3,no attack,100,no attack,84,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Insecure_AnB.AnBx,PROTO_0015,2,A1 ->* A2: N3,attack found,100,attack found,99,ATTACK,ATTACK,ATTACK
+ISOsymKeyTwoPassMutualAuthProtCorr_AnB.AnBx,PROTO_0016,1,A1 weakly authenticates A2 on N7,no attack,90,no attack,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOsymKeyTwoPassMutualAuthProtCorr_AnB.AnBx,PROTO_0016,2,A2 weakly authenticates A1 on N5,no attack,90,no attack,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Secret_for_B_AnB.AnBx,PROTO_0017,1,A1 ->* A2: N3,no attack,95,no attack,96,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Secret_for_B_AnB.AnBx,PROTO_0017,2,"N3 secret between A1,A2",no attack,100,attack found,89,ATTACK,ATTACK,ATTACK
+TLS_AnB.AnBx,PROTO_0018,1,"A2 authenticates A1 on prf(N8,N4,N5)",no attack,90,no attack,91,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_AnB.AnBx,PROTO_0018,2,"A1 authenticates A2 on prf(N8,N4,N5)",no attack,90,no attack,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_AnB.AnBx,PROTO_0018,3,"prf(N8,N4,N5) secret between A1,A2",no attack,85,no attack,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+WL92_AnB.AnBx,PROTO_0019,1,"A1 authenticates a3 on K6,A2",no attack,95,no attack,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+WL92_AnB.AnBx,PROTO_0019,2,"A2 authenticates a3 on K6,A1",no attack,95,no attack,78,NO_ATTACK,ATTACK,ATTACK
+WL92_AnB.AnBx,PROTO_0019,3,"K6 secret between A1,A2,a3",no attack,95,no attack,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0020,1,A2 weakly authenticates A1 on K6,no attack,90,no attack,91,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0020,2,A2 authenticates A1 on K6,no attack,90,no attack,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0020,3,"A2 authenticates a3 on K6,A1",no attack,95,no attack,93,NO_ATTACK,ATTACK,ATTACK
+Yahalom_AnB.AnBx,PROTO_0020,4,"A1 authenticates a3 on K6,A2",no attack,95,no attack,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0020,5,"K6 secret between A1,A2,a3",no attack,95,no attack,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0020,6,A1 ->* A2: K6,no attack,95,no attack,94,NO_ATTACK,NO_ATTACK,NO_ATTACK

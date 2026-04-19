@@ -1,0 +1,389 @@
+protocol_name,protocol_id,goal_id,goal_text,DeepSeek_result,DeepSeek_confidence,GPT_result,GPT_confidence,results-single-anb-typed-sessions_1-depth_0-2022-PCM.csv_result,results-single-anb-typed-sessions_2-depth_0-2022-PCM.csv_result,results-single-pv-typed-205-PCM.csv_result
+Amended_NSCK_AnB.AnBx,PROTO_0001,1,A1 authenticates A2 on N5,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,2,A2 authenticates A1 on N5,no attack,75,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,3,"N5 secret between A1,A2",attack found,90,attack found,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,4,A2 *->* A1: N5,attack found,95,attack found,80,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,5,A1 authenticates a3 on K7,no attack,80,no attack,74,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Amended_NSCK_AnB.AnBx,PROTO_0001,6,A2 authenticates a3 on K7,attack found,85,attack found,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_BlindForwarding_AnB.AnBx,PROTO_0002,1,"A1 weakly authenticates A2 on ccn(A2,A1)",attack found,85,attack found,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_BlindForwarding_AnB.AnBx,PROTO_0002,2,"ccn(A2,A1) secret between A2,A1",no attack,90,no attack,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_Fresh_from_A_AnB.AnBx,PROTO_0003,1,A2 authenticates A1 on N3,no attack,95,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_Fresh_from_A_with_DH_AnB.AnBx,PROTO_0004,1,A2 authenticates A1 on N3,attack found,85,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_From_A_secret_for_B_C_honest_AnB.AnBx,PROTO_0005,1,A2 weakly authenticates A1 on N4,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_From_A_secret_for_B_C_honest_AnB.AnBx,PROTO_0005,2,a3 weakly authenticates A1 on N4,attack found,85,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AnBx_From_A_secret_for_B_C_honest_AnB.AnBx,PROTO_0005,3,"N4 secret between A1,A2,a3",no attack,90,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+AndrewSecureRPC_AnB.AnBx,PROTO_0006,1,A2 *->* A1: N5,attack found,85,no attack,86,NO_ATTACK,ATTACK,ATTACK
+AndrewSecureRPC_AnB.AnBx,PROTO_0006,2,A1 authenticates A2 on N5,attack found,90,attack found,90,NO_ATTACK,ATTACK,ATTACK
+AndrewSecureRPCSecrecy_AnB.AnBx,PROTO_0007,1,A2 ->* A1: N5,attack found,95,no attack,92,NO_ATTACK,NO_ATTACK,
+Basic_Kerberos_AnB.AnBx,PROTO_0008,1,a4 *->* A1: N7,attack found,85,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Bilateral_Key_Exchange_AnB.AnBx,PROTO_0009,1,A2 authenticates A1 on K5,attack found,85,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0010,1,"A3 weakly authenticates A1 on N9,N5",attack found,85,attack found,78,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0010,2,"A3 weakly authenticates A2 on N10,N6",attack found,85,attack found,78,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0010,3,"N9,N10 secret between A3,A1,A2",attack found,90,attack found,85,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0010,4,"A3 weakly authenticates [A1] on N9,N5,N10,N6",attack found,80,attack found,80,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0010,5,"A3 weakly authenticates [A1] on N9,N5",attack found,85,attack found,78,NO_ATTACK,,NO_ATTACK
+BIP70_AnB.AnBx,PROTO_0010,6,A3 weakly authenticates [A1] on P17,no attack,70,attack found,82,NO_ATTACK,,NO_ATTACK
+Bullet_Channel_2_AnB.AnBx,PROTO_0011,1,A1 *->* A2: N3,no attack,100,no attack,78,NO_ATTACK,NO_ATTACK,
+Bullet_Channel_2_AnB.AnBx,PROTO_0011,2,A2 authenticates A1 on N3,attack found,90,attack found,86,NO_ATTACK,NO_ATTACK,
+Bullet_Channel_2_AnB.AnBx,PROTO_0011,3,A2 weakly authenticates A1 on N3,no attack,80,no attack,72,NO_ATTACK,NO_ATTACK,
+Bullet_Channel_2_AnB.AnBx,PROTO_0011,4,"N3 secret between A1,A2",no attack,100,no attack,80,NO_ATTACK,NO_ATTACK,
+Bullet_Channel_2_Secure_AnB.AnBx,PROTO_0012,1,A1 *->* A2: N4,no attack,95,no attack,78,NO_ATTACK,,NO_ATTACK
+Bullet_Channel_2_Secure_AnB.AnBx,PROTO_0012,2,A2 authenticates A1 on N4,attack found,85,attack found,70,NO_ATTACK,,no_query
+Bullet_Channel_2_Secure_AnB.AnBx,PROTO_0012,3,A2 weakly authenticates A1 on N4,no attack,75,no attack,74,NO_ATTACK,,no_query
+Bullet_Channel_2_Secure_AnB.AnBx,PROTO_0012,4,"N4 secret between A1,A2",no attack,90,no attack,80,NO_ATTACK,,NO_ATTACK
+Bullet_Channel_3_Secure_AnB.AnBx,PROTO_0013,1,A1 *->* A2: N4,no attack,95,no attack,78,NO_ATTACK,,NO_ATTACK
+Bullet_Channel_3_Secure_AnB.AnBx,PROTO_0013,2,A2 authenticates A1 on N4,attack found,85,attack found,86,NO_ATTACK,,no_query
+Bullet_Channel_3_Secure_AnB.AnBx,PROTO_0013,3,A2 weakly authenticates A1 on N4,no attack,80,no attack,72,NO_ATTACK,,no_query
+Bullet_Channel_3_Secure_AnB.AnBx,PROTO_0013,4,"N4 secret between A1,A2",no attack,90,no attack,80,NO_ATTACK,,NO_ATTACK
+Bullet_Channel_AnB.AnBx,PROTO_0014,1,A2 weakly authenticates A1 on N3,no attack,95,no attack,88,NO_ATTACK,NO_ATTACK,ATTACK
+Bullet_Channel_Expansion_Auth_AnB.AnBx,PROTO_0015,1,A2 weakly authenticates A1 on N3,no attack,95,attack found,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Bullet_Channel_Expansion_Secret_AnB.AnBx,PROTO_0016,1,A1 ->* A2: N3,no attack,100,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Bullet_Channel_Expansion_Secure_AnB.AnBx,PROTO_0017,1,A2 weakly authenticates A1 on N3,no attack,95,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Bullet_Channel_Expansion_Secure_AnB.AnBx,PROTO_0017,2,"N3 secret between A1,A2",no attack,95,no attack,82,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Carlsen_AnB.AnBx,PROTO_0018,1,"A2 authenticates a3 on K7,A1",no attack,85,no attack,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Carlsen_AnB.AnBx,PROTO_0018,2,"A1 authenticates a3 on K7,A2",attack found,90,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Carlsen_AnB.AnBx,PROTO_0018,3,"K7 secret between A1,A2,a3",no attack,80,no attack,80,NO_ATTACK,NO_ATTACK,NO_ATTACK
+CreditCard_AnB.AnBx,PROTO_0019,1,"A1 weakly authenticates A2 on ccn(A2,A1)",no attack,85,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+CreditCard_AnB.AnBx,PROTO_0019,2,"ccn(A2,A1) secret between A2,A1",attack found,90,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Definition_Test_AnB.AnBx,PROTO_0020,1,"A1 -> A2: fun2(A1,N3)",no attack,95,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+DenningSacco_AnB.AnBx,PROTO_0021,1,A1 *->* A2: K10,attack found,85,attack found,92,NO_ATTACK,ATTACK,ATTACK
+DenningSaccoCorr_AnB.AnBx,PROTO_0022,1,"K10 secret between A1,A2",attack found,85,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+DenningSaccoCorr_AnB.AnBx,PROTO_0022,2,A2 weakly authenticates A1 on K10,no attack,75,attack found,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+DH_AnB.AnBx,PROTO_0023,1,A2 authenticates A1 on N3,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,
+DH_AnB.AnBx,PROTO_0023,2,"N3 secret between A1,A2",no attack,90,no attack,78,NO_ATTACK,NO_ATTACK,
+DH_auth_AnB.AnBx,PROTO_0024,1,"N3 secret between A1,A2",attack found,85,attack found,92,ATTACK,ATTACK,ATTACK
+DH_auth_AnB.AnBx,PROTO_0024,2,A2 weakly authenticates A1 on N3,no attack,75,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+DH_hmac_AnB.AnBx,PROTO_0025,1,"N3 secret between A1,A2",attack found,85,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+DH_hmac_AnB.AnBx,PROTO_0025,2,A2 authenticates A1 on N3,attack found,90,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+emv_visa_k3_AnB.AnBx,PROTO_0026,1,"a3 weakly authenticates A1 on N7,N4,fcnUnpred(A2,fcnPDOL(A1,n16)),N9,N5,N6,fcnSeqNo(A1,n16)",attack found,85,attack found,86,ATTACK,ATTACK,NO_ATTACK
+emv_visa_k3_pseudo_AnB.AnBx,PROTO_0027,1,"[A2] weakly authenticates A1 on N7,N4,fcnUnpred(A2,fcnPDOL(A1,n16)),N9,N5,N6,fcnSeqNo(A1,n16),fcnUnpred(A1,fcnSeqNo(A1,n16))",attack found,85,attack found,78,NO_ATTACK,,NO_ATTACK
+emv_visa_k3_pseudo_AnB.AnBx,PROTO_0027,2,"shk(A1,a3) secret between A1,a3",no attack,95,no attack,90,ATTACK,ATTACK,NO_ATTACK
+emv_visa_k3_pseudo_AnB.AnBx,PROTO_0027,3,"a3 weakly authenticates A1 on N7,N4,fcnUnpred(A2,fcnPDOL(A1,n16)),N9,N5,N6,fcnSeqNo(A1,n16)",no attack,90,attack found,84,NO_ATTACK,,NO_ATTACK
+EPMO_AnB.AnBx,PROTO_0028,1,"A2 authenticates A1 on N4,N8,a3",attack found,85,attack found,92,NO_ATTACK,,NO_ATTACK
+EPMO_AnB.AnBx,PROTO_0028,2,"a3 authenticates A1 on N8,a3,A2",attack found,90,attack found,85,ATTACK,,ATTACK
+EPMO_AnB.AnBx,PROTO_0028,3,"N4,N8 secret between A1,A2",no attack,75,attack found,78,NO_ATTACK,,NO_ATTACK
+Forward_AnB.AnBx,PROTO_0029,1,A1 ->* A3: N4,attack found,95,attack found,95,ATTACK,ATTACK,ATTACK
+Forward_Blind_A_Digest_AnB.AnBx,PROTO_0030,1,"A1 ->* A3: hash(N4,hash(hmac(N4,Hx1A3N4)))",attack found,85,attack found,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ForwardAny_AnB.AnBx,PROTO_0031,1,A2 weakly authenticates A1 on N4,attack found,85,attack found,92,ATTACK,ATTACK,ATTACK
+ForwardAny_AnB.AnBx,PROTO_0031,2,A2 weakly authenticates A1 on N5,attack found,85,attack found,92,ATTACK,ATTACK,ATTACK
+Fresh_From_A_AnB.AnBx,PROTO_0032,1,A2 authenticates A1 on N3,attack found,95,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_AnB.AnBx,PROTO_0032,2,inv(pk(A1)) secret between A1,no attack,100,no attack,97,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_AnB.AnBx,PROTO_0032,3,inv(sk(A1)) secret between A1,no attack,100,no attack,96,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_Secret_AnB.AnBx,PROTO_0033,1,"N3 secret between A1,A2",attack found,95,no attack,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_Secret_AnB.AnBx,PROTO_0033,2,A2 authenticates A1 on N3,attack found,90,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_Secret_AnB.AnBx,PROTO_0033,3,inv(pk(A1)) secret between A1,no attack,100,no attack,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_From_A_Secret_AnB.AnBx,PROTO_0033,4,inv(sk(A1)) secret between A1,no attack,100,no attack,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_from_A_with_DH_AnB.AnBx,PROTO_0034,1,A1 *-> A2: N3,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_from_A_with_DH_AnB.AnBx,PROTO_0034,2,A2 ->* A1: N4,no attack,90,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_from_A_with_DH_AnB.AnBx,PROTO_0034,3,A1 *-> A2: N4,attack found,80,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_PublicKey_AnB.AnBx,PROTO_0035,1,A2 ->* A1: N3,attack found,95,attack found,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Fresh_PublicKey_Sign_AnB.AnBx,PROTO_0036,1,A2 weakly authenticates A1 on N3,attack found,95,attack found,92,ATTACK,ATTACK,ATTACK
+From_A_AnB.AnBx,PROTO_0037,1,A2 weakly authenticates A1 on N3,no attack,95,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+From_A_and_Back_AnB.AnBx,PROTO_0038,1,a2 weakly authenticates A1 on N3,no attack,85,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+From_A_and_Back_AnB.AnBx,PROTO_0038,2,A1 weakly authenticates a2 on N3,attack found,90,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+From_A_and_Back_AnB.AnBx,PROTO_0038,3,"N3 secret between a2,A1",no attack,80,attack found,96,ATTACK,ATTACK,ATTACK
+From_A_Mutual_AnB.AnBx,PROTO_0039,1,A2 weakly authenticates A1 on N3,no attack,95,attack found,92,NO_ATTACK,ATTACK,ATTACK
+From_A_Mutual_AnB.AnBx,PROTO_0039,2,A1 weakly authenticates A2 on N3,no attack,95,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+From_A_Secret_AnB.AnBx,PROTO_0040,1,A2 weakly authenticates A1 on N3,no attack,95,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+From_A_Secret_AnB.AnBx,PROTO_0040,2,"N3 secret between A1,A2",no attack,90,attack found,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Goss_AnB.AnBx,PROTO_0041,1,"N3 secret between A1,A2",attack found,95,attack found,78,ATTACK,ATTACK,ATTACK
+Goss_AnB.AnBx,PROTO_0041,2,"N4 secret between A1,A2",attack found,95,attack found,78,ATTACK,ATTACK,ATTACK
+Goss_AnB.AnBx,PROTO_0041,3,A1 ->* A2: N3,attack found,90,no attack,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Goss_AnB.AnBx,PROTO_0041,4,A2 ->* A1: N4,attack found,90,no attack,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+GSM_AnB.AnBx,PROTO_0042,1,A1 authenticates A3 on N5,attack found,85,attack found,92,ATTACK,ATTACK,ATTACK
+GSM_AnB.AnBx,PROTO_0042,2,"N4 secret between A1,A3",attack found,90,attack found,85,ATTACK,ATTACK,ATTACK
+GSM_AnB.AnBx,PROTO_0042,3,A1 ->* A3: N4,attack found,95,attack found,88,ATTACK,ATTACK,ATTACK
+H530_AnB.AnBx,PROTO_0043,1,A2 authenticates A1 on N4,attack found,85,attack found,93,NO_ATTACK,ATTACK,ATTACK
+H530_AnB.AnBx,PROTO_0043,2,"N4 secret between A1,A2",no attack,90,no attack,78,NO_ATTACK,ATTACK,ATTACK
+H530fix_AnB.AnBx,PROTO_0044,1,A1 *->* A2: N4,attack found,85,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+H530fix_AnB.AnBx,PROTO_0044,2,A2 authenticates A1 on N4,attack found,80,attack found,74,NO_ATTACK,NO_ATTACK,NO_ATTACK
+H530fix_AnB.AnBx,PROTO_0044,3,"N4 secret between A1,A2",attack found,90,no attack,67,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Hash_AnB.AnBx,PROTO_0045,1,A1 -> A2: hash(N3),no attack,100,attack found,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Hmac_AnB.AnBx,PROTO_0046,1,"A1 -> A2: hmac(N3,shk(A1,A2))",attack found,95,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+IKEv2DS_AnB.AnBx,PROTO_0047,1,"A1 authenticates A2 on exp(exp(g,N8),N9)",attack found,85,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+IKEv2DS_AnB.AnBx,PROTO_0047,2,"A2 authenticates A1 on exp(exp(g,N8),N9)",attack found,85,no attack,64,NO_ATTACK,NO_ATTACK,NO_ATTACK
+IKEv2DS_AnB.AnBx,PROTO_0047,3,"exp(exp(g,N8),N9) secret between A1,A2",no attack,90,no attack,70,NO_ATTACK,NO_ATTACK,NO_ATTACK
+IKEv2DS_AnB.AnBx,PROTO_0047,4,A1 *->* A2: N3,attack found,80,attack found,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Insecure_AnB.AnBx,PROTO_0048,1,A1 -> A2: N3,no attack,100,attack found,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Insecure_AnB.AnBx,PROTO_0048,2,A1 ->* A2: N3,attack found,100,attack found,99,ATTACK,ATTACK,ATTACK
+Insecure_Const_AnB.AnBx,PROTO_0049,1,A1 -> A2: n3,no attack,100,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Insecure_Const_AnB.AnBx,PROTO_0049,2,A1 ->* A2: n3,attack found,100,attack found,98,ATTACK,ATTACK,ATTACK
+ISO4pass_AnB.AnBx,PROTO_0050,1,A2 weakly authenticates A1 on K16,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISO4pass_AnB.AnBx,PROTO_0050,2,A1 authenticates A2 on K16,no attack,90,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISO4pass_AnB.AnBx,PROTO_0050,3,A2 *-> A1: K16,attack found,95,attack found,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISO4pass_AnB.AnBx,PROTO_0050,4,"A2 weakly authenticates a3 on K16,A1",no attack,80,attack found,93,ATTACK,ATTACK,ATTACK
+ISO4pass_AnB.AnBx,PROTO_0050,5,"A1 authenticates a3 on K16,A2",no attack,85,attack found,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISO4pass_AnB.AnBx,PROTO_0050,6,"K16 secret between A1,A2,a3",attack found,75,no attack,72,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISO5pass_AnB.AnBx,PROTO_0051,1,"A2 authenticates a3 on K16,A1",attack found,85,attack found,88,ATTACK,ATTACK,ATTACK
+ISO5pass_AnB.AnBx,PROTO_0051,2,"A1 authenticates a3 on K16,A2",attack found,85,attack found,90,ATTACK,ATTACK,ATTACK
+ISO5pass_AnB.AnBx,PROTO_0051,3,"K16 secret between A1,A2,a3",no attack,90,attack found,75,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOCCFOnePassUnilateralAuthProt_AnB.AnBx,PROTO_0052,1,A2 weakly authenticates A1 on N5,attack found,95,attack found,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOCCFThreePassMutual_AnB.AnBx,PROTO_0053,1,A1 *-> A2: N6,attack found,95,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOCCFThreePassMutual_AnB.AnBx,PROTO_0053,2,A2 *-> A1: N8,attack found,95,no attack,72,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOCCFTwoPassMutualAuthProtCorr_AnB.AnBx,PROTO_0054,1,A2 weakly authenticates A1 on N5,attack found,85,attack found,92,ATTACK,ATTACK,ATTACK
+ISOCCFTwoPassMutualAuthProtCorr_AnB.AnBx,PROTO_0054,2,A1 weakly authenticates A2 on N7,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOCCFTwoPassUnilateralAuthProt_AnB.AnBx,PROTO_0055,1,A1 *-> A2: N5,attack found,95,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOpubKeyOnePassUnilateralAuthProt_AnB.AnBx,PROTO_0056,1,A2 weakly authenticates A1 on N5,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOpubKeyTwoPassMutualAuthProt_AnB.AnBx,PROTO_0057,1,A2 weakly authenticates A1 on N6,attack found,85,attack found,92,NO_ATTACK,ATTACK,NO_ATTACK
+ISOpubKeyTwoPassMutualAuthProt_AnB.AnBx,PROTO_0057,2,A1 weakly authenticates A2 on N8,attack found,85,attack found,92,NO_ATTACK,ATTACK,
+ISOpubKeyTwoPassMutualAuthProtCorr_AnB.AnBx,PROTO_0058,1,A2 weakly authenticates A1 on N6,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOpubKeyTwoPassMutualAuthProtCorr_AnB.AnBx,PROTO_0058,2,A1 weakly authenticates A2 on N8,attack found,85,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOpubKeyTwoPassUnilateralAuthProt_AnB.AnBx,PROTO_0059,1,A1 *-> A2: N7,attack found,85,attack found,92,ATTACK,ATTACK,ATTACK
+ISOsymKeyOnePassUnilateralAuthProt_AnB.AnBx,PROTO_0060,1,A2 weakly authenticates A1 on N4,no attack,95,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOsymKeyThreePassMutual_AnB.AnBx,PROTO_0061,1,A1 *-> A2: N6,no attack,85,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOsymKeyThreePassMutual_AnB.AnBx,PROTO_0061,2,A2 *-> A1: N8,attack found,90,attack found,74,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOsymKeyTwoPassMutualAuthProtCorr_AnB.AnBx,PROTO_0062,1,A1 weakly authenticates A2 on N7,attack found,85,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOsymKeyTwoPassMutualAuthProtCorr_AnB.AnBx,PROTO_0062,2,A2 weakly authenticates A1 on N5,attack found,85,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ISOsymKeyTwoPassUnilateralAuthProt_AnB.AnBx,PROTO_0063,1,A1 *-> A2: N5,no attack,95,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Kerberos_PKINIT_AnB.AnBx,PROTO_0064,1,a4 *->* A1: N7,attack found,85,attack found,86,ATTACK,ATTACK,ATTACK
+KeyEx1_AnB.AnBx,PROTO_0065,1,"A1 authenticates a3 on K4,A2",attack found,85,attack found,95,ATTACK,ATTACK,ATTACK
+KeyEx1_AnB.AnBx,PROTO_0065,2,"A2 authenticates a3 on K4,A1",attack found,90,attack found,97,ATTACK,ATTACK,ATTACK
+KeyEx1_AnB.AnBx,PROTO_0065,3,"K4 secret between A1,A2,a3",attack found,95,attack found,99,ATTACK,ATTACK,ATTACK
+KeyEx2_AnB.AnBx,PROTO_0066,1,"A1 authenticates a3 on K4,A2",no attack,85,attack found,92,ATTACK,ATTACK,ATTACK
+KeyEx2_AnB.AnBx,PROTO_0066,2,"A2 authenticates a3 on K4,A1",attack found,90,attack found,95,ATTACK,ATTACK,ATTACK
+KeyEx2_AnB.AnBx,PROTO_0066,3,"K4 secret between A1,A2,a3",no attack,80,attack found,80,ATTACK,ATTACK,ATTACK
+KeyEx3_AnB.AnBx,PROTO_0067,1,"A1 authenticates a3 on K4,A2",no attack,85,attack found,92,ATTACK,ATTACK,ATTACK
+KeyEx3_AnB.AnBx,PROTO_0067,2,"A2 authenticates a3 on K4,A1",attack found,90,attack found,90,ATTACK,ATTACK,ATTACK
+KeyEx3_AnB.AnBx,PROTO_0067,3,"K4 secret between A1,A2,a3",no attack,80,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx3b_AnB.AnBx,PROTO_0068,1,"A1 authenticates a3 on K4,A2",no attack,90,attack found,92,NO_ATTACK,ATTACK,ATTACK
+KeyEx3b_AnB.AnBx,PROTO_0068,2,"A2 authenticates a3 on K4,A1",attack found,85,attack found,95,NO_ATTACK,ATTACK,ATTACK
+KeyEx3b_AnB.AnBx,PROTO_0068,3,"K4 secret between A1,A2,a3",no attack,95,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx4_AnB.AnBx,PROTO_0069,1,"A1 authenticates a3 on K6,A2",no attack,85,attack found,78,NO_ATTACK,ATTACK,ATTACK
+KeyEx4_AnB.AnBx,PROTO_0069,2,"A2 authenticates a3 on K6,A1",attack found,90,attack found,74,NO_ATTACK,ATTACK,ATTACK
+KeyEx4_AnB.AnBx,PROTO_0069,3,"K6 secret between A1,A2,a3",no attack,80,no attack,67,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx4b_AnB.AnBx,PROTO_0070,1,"A1 authenticates a3 on K6,A2",no attack,85,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx4b_AnB.AnBx,PROTO_0070,2,"A2 authenticates a3 on K6,A1",attack found,90,attack found,86,NO_ATTACK,ATTACK,ATTACK
+KeyEx4b_AnB.AnBx,PROTO_0070,3,"K6 secret between A1,A2,a3",no attack,80,no attack,74,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx5_AnB.AnBx,PROTO_0071,1,"A1 authenticates a3 on K6,A2",no attack,85,attack found,78,ATTACK,ATTACK,ATTACK
+KeyEx5_AnB.AnBx,PROTO_0071,2,"A2 authenticates a3 on K6,A1",attack found,90,attack found,85,ATTACK,ATTACK,ATTACK
+KeyEx5_AnB.AnBx,PROTO_0071,3,"K6 secret between A1,A2,a3",no attack,80,no attack,72,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx5b_AnB.AnBx,PROTO_0072,1,"A1 authenticates a3 on K6,A2",no attack,85,attack found,86,NO_ATTACK,ATTACK,ATTACK
+KeyEx5b_AnB.AnBx,PROTO_0072,2,"A2 authenticates a3 on K6,A1",attack found,90,attack found,90,NO_ATTACK,ATTACK,ATTACK
+KeyEx5b_AnB.AnBx,PROTO_0072,3,"K6 secret between A1,A2,a3",no attack,95,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx5c_AnB.AnBx,PROTO_0073,1,"A1 authenticates a3 on K6,A2",no attack,85,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx5c_AnB.AnBx,PROTO_0073,2,"A2 authenticates a3 on K6,A1",attack found,90,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx5c_AnB.AnBx,PROTO_0073,3,"K6 secret between A1,A2,a3",no attack,80,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx6_AnB.AnBx,PROTO_0074,1,"A1 authenticates a3 on K6,A2",no attack,85,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx6_AnB.AnBx,PROTO_0074,2,"A2 authenticates a3 on K6,A1",attack found,90,attack found,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+KeyEx6_AnB.AnBx,PROTO_0074,3,"K6 secret between A1,A2,a3",no attack,80,no attack,80,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Latex_Test_AnB.AnBx,PROTO_0075,1,A1 -> A2: N4,no attack,95,attack found,92,NO_ATTACK,NO_ATTACK,
+MultiEncrypt_AnB.AnBx,PROTO_0076,1,"N4 secret between A1,A2",attack found,95,attack found,92,ATTACK,ATTACK,ATTACK
+MultiEncrypt_AnB.AnBx,PROTO_0076,2,"N5 secret between A1,A2",attack found,95,attack found,92,ATTACK,ATTACK,ATTACK
+NonReversible_AnB.AnBx,PROTO_0077,1,A1 *->* A2: N3,no attack,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NonReversible_AnB.AnBx,PROTO_0077,2,A2 *-> A1: N4,attack found,90,attack found,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSCK_AnB.AnBx,PROTO_0078,1,A2 *->* A1: N5,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSCK_AnB.AnBx,PROTO_0078,2,A2 weakly authenticates A1 on N5,no attack,80,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSCK_AnB.AnBx,PROTO_0078,3,A1 authenticates a3 on K7,no attack,90,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSCK_AnB.AnBx,PROTO_0078,4,A2 authenticates a3 on K7,no attack,90,attack found,85,NO_ATTACK,ATTACK,ATTACK
+NSL_AnB.AnBx,PROTO_0079,1,A1 *->* A2: N3,attack found,95,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSL_AnB.AnBx,PROTO_0079,2,A2 *->* A1: N4,attack found,95,no attack,74,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSL_KeyServer_AnB.AnBx,PROTO_0080,1,A2 authenticates A1 on N4,attack found,85,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSL_KeyServer_AnB.AnBx,PROTO_0080,2,A1 authenticates A2 on N5,attack found,85,no attack,74,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSL_KeyServer_AnB.AnBx,PROTO_0080,3,"N4 secret between A1,A2",no attack,90,no attack,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSL_KeyServer_AnB.AnBx,PROTO_0080,4,"N5 secret between A1,A2",no attack,90,no attack,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSL_KeyServer_AnB.AnBx,PROTO_0080,5,A1 *->* A2: N4,attack found,80,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSL_KeyServer_AnB.AnBx,PROTO_0080,6,A2 *->* A1: N5,attack found,80,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSPK_AnB.AnBx,PROTO_0081,1,A2 authenticates A1 on N3,attack found,85,no attack,86,ATTACK,ATTACK,ATTACK
+NSPK_AnB.AnBx,PROTO_0081,2,A1 authenticates A2 on N4,attack found,90,no attack,84,NO_ATTACK,NO_ATTACK,NO_ATTACK
+NSPK_AnB.AnBx,PROTO_0081,3,"N3 secret between A1,A2",attack found,95,no attack,90,ATTACK,ATTACK,ATTACK
+NSPK_AnB.AnBx,PROTO_0081,4,"N4 secret between A1,A2",attack found,95,no attack,90,ATTACK,ATTACK,ATTACK
+NSPK_KeyServer_AnB.AnBx,PROTO_0082,1,A1 *->* A2: N4,attack found,85,attack found,78,NO_ATTACK,ATTACK,ATTACK
+NSPK_KeyServer_AnB.AnBx,PROTO_0082,2,A2 *->* A1: N5,attack found,90,attack found,74,ATTACK,ATTACK,ATTACK
+ob_aisp_protocol_AnB.AnBx,PROTO_0083,1,"fAISPSecret(a4,A2) secret between A2,a4",no attack,95,no attack,78,NO_ATTACK,,NO_ATTACK
+ob_aisp_protocol_AnB.AnBx,PROTO_0083,2,"fPSUSecret(A3,a4) secret between A3,a4",no attack,95,no attack,78,NO_ATTACK,,NO_ATTACK
+ob_aisp_protocol_AnB.AnBx,PROTO_0083,3,"fClientCredToken(A2,V10),fAuthCodeToken(fAuthCode(fCreateIntent(fClientCredToken(A2,V10),V6))) secret between A2,a4,a5",attack found,85,no attack,74,NO_ATTACK,,NO_ATTACK
+ob_aisp_protocol_AnB.AnBx,PROTO_0083,4,"A3 weakly authenticates a4 on fGetIntent(fCreateIntent(fClientCredToken(A2,V10),V6))",attack found,80,attack found,67,NO_ATTACK,,NO_ATTACK
+ob_aisp_protocol_AnB.AnBx,PROTO_0083,5,a5 weakly authenticates A3 on V6,attack found,90,attack found,70,NO_ATTACK,,NO_ATTACK
+ob_aisp_protocol_AnB.AnBx,PROTO_0083,6,"A3 weakly authenticates A2 on V9,V8",attack found,85,attack found,62,NO_ATTACK,,NO_ATTACK
+ob_aisp_protocol_AnB.AnBx,PROTO_0083,7,"fAccountsEndpoint(fAuthCodeToken(fAuthCode(fCreateIntent(fClientCredToken(A2,V10),V6))),V11,empty) secret between A2,a5",no attack,90,no attack,76,NO_ATTACK,,NO_ATTACK
+ob_aisp_protocol_AnB.AnBx,PROTO_0083,8,"A2 weakly authenticates a5 on fAccountsEndpoint(fAuthCodeToken(fAuthCode(fCreateIntent(fClientCredToken(A2,V10),V6))),V11,empty)",attack found,75,no attack,73,NO_ATTACK,,NO_ATTACK
+Orig_1KP_AnB.AnBx,PROTO_0084,1,"can(A1,a3) secret between A1,a3",attack found,95,attack found,98,NO_ATTACK,,NO_ATTACK
+Orig_1KP_AnB.AnBx,PROTO_0084,2,A2 authenticates a3 on S10,no attack,90,no attack,92,ATTACK,,ATTACK
+Orig_1KP_AnB.AnBx,PROTO_0084,3,A1 authenticates a3 on S10,attack found,85,no attack,90,NO_ATTACK,,NO_ATTACK
+Orig_1KP_AnB.AnBx,PROTO_0084,4,"A2 authenticates a3 on N9,N7,S11,N8,hmac(can(A1,a3),V4),hmac(N6,V5),S10",no attack,85,attack found,95,ATTACK,,ATTACK
+Orig_1KP_AnB.AnBx,PROTO_0084,5,"A1 authenticates a3 on N9,N7,S11,N8,hmac(can(A1,a3),V4),hmac(N6,V5),S10",no attack,80,attack found,94,NO_ATTACK,,NO_ATTACK
+Orig_1KP_AnB.AnBx,PROTO_0084,6,"N6 secret between A1,A2",attack found,75,attack found,97,NO_ATTACK,,NO_ATTACK
+Orig_1KP_Fixed_AnB.AnBx,PROTO_0085,1,"can(A1,a3) secret between A1,a3",attack found,95,attack found,98,NO_ATTACK,,NO_ATTACK
+Orig_1KP_Fixed_AnB.AnBx,PROTO_0085,2,A2 authenticates a3 on S10,no attack,90,no attack,90,NO_ATTACK,,NO_ATTACK
+Orig_1KP_Fixed_AnB.AnBx,PROTO_0085,3,A1 authenticates a3 on S10,attack found,85,no attack,88,NO_ATTACK,,NO_ATTACK
+Orig_1KP_Fixed_AnB.AnBx,PROTO_0085,4,"A2 authenticates a3 on N9,N7,S11,N8,hmac(can(A1,a3),V4),hmac(N6,V5),S10",no attack,88,no attack,86,NO_ATTACK,,NO_ATTACK
+Orig_1KP_Fixed_AnB.AnBx,PROTO_0085,5,"A1 authenticates a3 on N9,N7,S11,N8,hmac(can(A1,a3),V4),hmac(N6,V5),S10",attack found,85,attack found,80,NO_ATTACK,,NO_ATTACK
+Orig_1KP_Fixed_AnB.AnBx,PROTO_0085,6,"N6 secret between A1,A2",attack found,80,attack found,95,NO_ATTACK,,NO_ATTACK
+Orig_2KP_AnB.AnBx,PROTO_0086,1,"can(A1,a3) secret between A1,a3",attack found,95,attack found,95,NO_ATTACK,,NO_ATTACK
+Orig_2KP_AnB.AnBx,PROTO_0086,2,"A1 authenticates A2 on N11,N7,S13,N8,hmac(can(A1,a3),V4),hmac(N6,V5),hash(N9),hash(N10)",no attack,85,attack found,90,NO_ATTACK,,ATTACK
+Orig_2KP_AnB.AnBx,PROTO_0086,3,"a3 weakly authenticates A2 on N11,N7,S13,N8,hmac(can(A1,a3),V4),hmac(N6,V5),hash(N9),hash(N10)",attack found,90,no attack,78,NO_ATTACK,,NO_ATTACK
+Orig_2KP_AnB.AnBx,PROTO_0086,4,A1 authenticates a3 on S12,no attack,80,attack found,92,NO_ATTACK,,NO_ATTACK
+Orig_2KP_AnB.AnBx,PROTO_0086,5,"A1 authenticates a3 on N11,N7,S13,N8,hmac(can(A1,a3),V4),hmac(N6,V5),hash(N9),hash(N10),S12",no attack,75,attack found,88,NO_ATTACK,,NO_ATTACK
+Orig_2KP_AnB.AnBx,PROTO_0086,6,"N6 secret between A1,A2",attack found,85,attack found,85,NO_ATTACK,,NO_ATTACK
+Orig_2KP_Fixed_AnB.AnBx,PROTO_0087,1,"can(A1,a3) secret between A1,a3",attack found,95,attack found,92,NO_ATTACK,,NO_ATTACK
+Orig_2KP_Fixed_AnB.AnBx,PROTO_0087,2,"A1 authenticates A2 on N11,N7,S13,N8,hmac(can(A1,a3),V4),hmac(N6,V5),hash(N9),hash(N10)",no attack,85,no attack,84,NO_ATTACK,,NO_ATTACK
+Orig_2KP_Fixed_AnB.AnBx,PROTO_0087,3,"a3 weakly authenticates A2 on N11,N7,S13,N8,hmac(can(A1,a3),V4),hmac(N6,V5),hash(N9),hash(N10)",no attack,80,no attack,86,NO_ATTACK,,NO_ATTACK
+Orig_2KP_Fixed_AnB.AnBx,PROTO_0087,4,A2 authenticates a3 on S12,no attack,90,no attack,90,NO_ATTACK,,NO_ATTACK
+Orig_2KP_Fixed_AnB.AnBx,PROTO_0087,5,A1 authenticates a3 on S12,attack found,75,attack found,88,NO_ATTACK,,NO_ATTACK
+Orig_2KP_Fixed_AnB.AnBx,PROTO_0087,6,"A2 authenticates a3 on N11,N7,S13,N8,hmac(can(A1,a3),V4),hmac(N6,V5),hash(N9),hash(N10),S12",no attack,85,no attack,83,NO_ATTACK,,NO_ATTACK
+Orig_2KP_Fixed_AnB.AnBx,PROTO_0087,7,"A1 authenticates a3 on N11,N7,S13,N8,hmac(can(A1,a3),V4),hmac(N6,V5),hash(N9),hash(N10),S12",attack found,70,attack found,85,NO_ATTACK,,NO_ATTACK
+Orig_2KP_Fixed_AnB.AnBx,PROTO_0087,8,"N6 secret between A1,A2",attack found,90,attack found,80,NO_ATTACK,,NO_ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,1,"can(A1,a3) secret between A1,a3",attack found,95,no attack,78,NO_ATTACK,,NO_ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,2,"a3 weakly authenticates A1 on can(A1,a3)",no attack,85,attack found,85,NO_ATTACK,,NO_ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,3,"a3 weakly authenticates A2 on N13,N8,N14,N9,hmac(can(A1,a3),V4),hmac(N7,V5),hash(N11),hash(N12)",no attack,80,no attack,74,NO_ATTACK,,NO_ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,4,"a3 weakly authenticates A1 on N13,N8,N14,N9,hmac(can(A1,a3),V4),hmac(N7,V5),hash(N11),hash(N12)",no attack,80,attack found,83,NO_ATTACK,,NO_ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,5,"A2 authenticates a3 on N13,N8,N14,N9,hmac(can(A1,a3),V4),hmac(N7,V5),hash(N11),hash(N12),N6",attack found,75,no attack,80,ATTACK,,ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,6,"A1 authenticates a3 on N13,N8,N14,N9,hmac(can(A1,a3),V4),hmac(N7,V5),hash(N11),hash(N12),N6",attack found,80,attack found,88,NO_ATTACK,,NO_ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,7,A2 authenticates a3 on N6,no attack,85,no attack,82,ATTACK,,ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,8,A1 authenticates a3 on N6,no attack,85,attack found,88,NO_ATTACK,,NO_ATTACK
+Orig_3KP_AnB.AnBx,PROTO_0088,9,"N7 secret between A1,A2",attack found,90,attack found,76,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,1,"can(A1,a3) secret between A1,a3",attack found,95,attack found,95,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,2,"a3 weakly authenticates A1 on can(A1,a3)",no attack,85,attack found,90,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,3,"A1 authenticates A2 on N13,N8,N14,N9,hmac(can(A1,a3),V4),hmac(N7,V5),hash(N11),hash(N12)",no attack,80,attack found,92,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,4,"a3 weakly authenticates A2 on N13,N8,N14,N9,hmac(can(A1,a3),V4),hmac(N7,V5),hash(N11),hash(N12)",no attack,85,no attack,78,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,5,"a3 weakly authenticates A1 on N13,N8,N14,N9,hmac(can(A1,a3),V4),hmac(N7,V5),hash(N11),hash(N12)",no attack,80,attack found,88,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,6,A2 authenticates a3 on N6,no attack,90,no attack,85,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,7,"A1 authenticates a3 on N13,N8,N14,N9,hmac(can(A1,a3),V4),hmac(N7,V5),hash(N11),hash(N12),N6",attack found,75,attack found,90,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,8,A1 authenticates a3 on N6,no attack,85,no attack,80,NO_ATTACK,,NO_ATTACK
+Orig_3KP_Fixed_AnB.AnBx,PROTO_0089,9,"N7 secret between A1,A2",attack found,70,attack found,93,NO_ATTACK,,NO_ATTACK
+Otway_Rees_AnB.AnBx,PROTO_0090,1,"K7 secret between A1,A2,a3",attack found,85,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Otway_Rees_AnB.AnBx,PROTO_0090,2,A2 authenticates a3 on K7,no attack,90,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Otway_Rees_AnB.AnBx,PROTO_0090,3,A1 authenticates a3 on K7,attack found,80,attack found,84,NO_ATTACK,NO_ATTACK,NO_ATTACK
+PK_Lookup_AnB.AnBx,PROTO_0091,1,A2 ->* A1: N3,no attack,95,no attack,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+PK_Lookup_honest_AnB.AnBx,PROTO_0092,1,a2 ->* A1: N3,attack found,95,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Rev_1KP_AnB.AnBx,PROTO_0093,1,"ccn(A1,a3) secret between A1,a3",attack found,95,attack found,92,NO_ATTACK,,NO_ATTACK
+Rev_1KP_AnB.AnBx,PROTO_0093,2,A2 authenticates a3 on N4,no attack,85,no attack,84,NO_ATTACK,,NO_ATTACK
+Rev_1KP_AnB.AnBx,PROTO_0093,3,A1 authenticates a3 on N4,attack found,90,no attack,82,NO_ATTACK,,NO_ATTACK
+Rev_1KP_AnB.AnBx,PROTO_0093,4,"A2 authenticates a3 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hash(N5)),N4",no attack,85,no attack,80,NO_ATTACK,,NO_ATTACK
+Rev_1KP_AnB.AnBx,PROTO_0093,5,"A1 authenticates a3 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hash(N5)),N4",attack found,90,no attack,78,NO_ATTACK,,NO_ATTACK
+Rev_1KP_AnB.AnBx,PROTO_0093,6,"N5 secret between A1,A2",attack found,80,attack found,95,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,1,"ccn(A1,a3) secret between A1,a3",attack found,95,attack found,92,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,2,A2 authenticates a3 on N4,no attack,85,no attack,78,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,3,A1 authenticates a3 on N4,attack found,90,attack found,85,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,4,"A1 authenticates A2 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5))",no attack,80,no attack,80,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,5,"a3 weakly authenticates A2 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5))",no attack,75,no attack,77,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,6,"A2 authenticates a3 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5)),N4",no attack,85,no attack,76,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,7,"A1 authenticates a3 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5)),N4",attack found,90,attack found,84,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,8,"N5 secret between A1,A2",attack found,95,attack found,90,NO_ATTACK,,NO_ATTACK
+Rev_2KP_AnB.AnBx,PROTO_0094,9,"N6 secret between A1,A2,a3",attack found,100,no attack,70,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,1,"ccn(A1,a3) secret between A1,a3",attack found,90,no attack,86,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,2,"a3 weakly authenticates A1 on ccn(A1,a3)",no attack,85,attack found,78,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,3,A2 authenticates a3 on N4,attack found,80,no attack,84,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,4,A1 authenticates a3 on N4,no attack,85,no attack,83,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,5,"A1 authenticates A2 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5))",no attack,90,no attack,82,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,6,"a3 weakly authenticates A2 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5))",no attack,85,no attack,80,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,7,"A2 authenticates a3 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5)),N4",attack found,80,no attack,81,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,8,"A1 authenticates a3 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5)),N4",no attack,85,no attack,80,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,9,"A2 authenticates A1 on hash(N6,N7,hmac(ccn(A1,a3),Hx3a3ccnA1a3),hmac(N5,Hx3A2N5))",no attack,90,no attack,79,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,10,"N5 secret between A1,A2",attack found,95,attack found,77,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,11,"N4 secret between A1,A2,a3",attack found,85,no attack,85,NO_ATTACK,,NO_ATTACK
+Rev_3KP_AnB.AnBx,PROTO_0095,12,"N6 secret between A1,A2,a3",attack found,90,attack found,74,NO_ATTACK,,NO_ATTACK
+Secret_for_B_AnB.AnBx,PROTO_0096,1,A1 ->* A2: N3,no attack,100,no attack,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Secret_for_B_AnB.AnBx,PROTO_0096,2,"N3 secret between A1,A2",no attack,100,no attack,85,ATTACK,ATTACK,ATTACK
+Secret_for_B_v2_AnB.AnBx,PROTO_0097,1,A1 ->* A2: N3,no attack,95,no attack,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Secret_for_B_v2_AnB.AnBx,PROTO_0097,2,"N3 secret between A1,A2",no attack,95,no attack,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Secret_for_B_v2_AnB.AnBx,PROTO_0097,3,A2 authenticates A1 on N3,attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Secret_for_B_v2_AnB.AnBx,PROTO_0097,4,A2 authenticates A1 on N4,attack found,90,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Secret_Goal_Pair_AnB.AnBx,PROTO_0098,1,A1 ->* A2: N3,attack found,100,attack found,98,ATTACK,ATTACK,ATTACK
+Secret_Goal_Pair_AnB.AnBx,PROTO_0098,2,"{N3,N4}pk(A2) secret between A1,A2",no attack,100,no attack,72,ATTACK,ATTACK,ATTACK
+Secret_Goal_Pair_AnB.AnBx,PROTO_0098,3,"N3,N4 secret between A1,A2",attack found,100,attack found,99,ATTACK,ATTACK,ATTACK
+Secret_Goal_Pair_AnB.AnBx,PROTO_0098,4,"N3 secret between A1,A2",attack found,100,attack found,99,ATTACK,ATTACK,ATTACK
+Secret_Goal_Pair_AnB.AnBx,PROTO_0098,5,"N4 secret between A1,A2",attack found,100,attack found,99,ATTACK,ATTACK,ATTACK
+Secret_Pair_AnB.AnBx,PROTO_0099,1,"A1 -> A2: N3,N4",no attack,100,no attack,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Secret_Pair_AnB.AnBx,PROTO_0099,2,"A1 ->* A2: N3,N4",attack found,100,attack found,98,ATTACK,ATTACK,ATTACK
+Secret_Pair_AnB.AnBx,PROTO_0099,3,A1 ->* A2: N3,attack found,100,attack found,98,ATTACK,ATTACK,ATTACK
+Secret_Pair_AnB.AnBx,PROTO_0099,4,"A2 authenticates A1 on N3,N4",attack found,100,attack found,95,ATTACK,ATTACK,ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,1,"pan(A1,a3) secret between A1,a3",attack found,85,attack found,95,NO_ATTACK,,NO_ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,2,"a3 weakly authenticates A1 on pan(A1,a3)",attack found,90,no attack,72,NO_ATTACK,,NO_ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,3,A2 authenticates a3 on N4,no attack,80,no attack,80,NO_ATTACK,,NO_ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,4,A1 authenticates A2 on N4,attack found,75,no attack,78,NO_ATTACK,,NO_ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,5,"a3 weakly authenticates A1 on N10,N7,N8,hash(N7,N8,hash(N9,N10),N10,A2,hash(N8,pan(A1,a3)),pan(A1,a3)),hash(N7,N8,N5,hash(N9,N10),N6)",attack found,85,no attack,70,NO_ATTACK,,NO_ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,6,"A1 authenticates A2 on N10,N7,N8,hash(N7,N8,hash(N9,N10),N10,A2,hash(N8,pan(A1,a3)),pan(A1,a3)),hash(N7,N8,N5,hash(N9,N10),N6)",no attack,70,attack found,88,NO_ATTACK,,NO_ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,7,"A2 authenticates A1 on N10,N7,N8,hash(N7,N8,hash(N9,N10),N10,A2,hash(N8,pan(A1,a3)),pan(A1,a3)),hash(N7,N8,N5,hash(N9,N10),N6)",attack found,80,attack found,85,NO_ATTACK,,NO_ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,8,"N9 secret between A1,A2",attack found,95,no attack,60,NO_ATTACK,,NO_ATTACK
+SET_Orig_AnB.AnBx,PROTO_0100,9,"N10 secret between A1,A2,a3",attack found,100,attack found,92,NO_ATTACK,,NO_ATTACK
+SET_Orig_v2_AnB.AnBx,PROTO_0101,1,"pan(A1,a3) secret between A1,a3",no attack,95,attack found,95,NO_ATTACK,,NO_ATTACK
+SET_Orig_v2_AnB.AnBx,PROTO_0101,2,A2 authenticates a3 on N4,no attack,90,no attack,78,NO_ATTACK,,NO_ATTACK
+SET_Orig_v2_AnB.AnBx,PROTO_0101,3,A1 authenticates A2 on N4,attack found,85,no attack,80,NO_ATTACK,,NO_ATTACK
+SET_Orig_v2_AnB.AnBx,PROTO_0101,4,"a3 weakly authenticates A1 on N10,N7,N8,hash(N7,N8,hash(N9,N10),N10,A2,hash(N8,pan(A1,a3)),pan(A1,a3)),hash(N7,N8,N5,hash(N9,N10),N6)",no attack,80,attack found,88,NO_ATTACK,,NO_ATTACK
+SET_Orig_v2_AnB.AnBx,PROTO_0101,5,"A1 authenticates A2 on N10,N7,N8,hash(N7,N8,hash(N9,N10),N10,A2,hash(N8,pan(A1,a3)),pan(A1,a3)),hash(N7,N8,N5,hash(N9,N10),N6)",no attack,85,attack found,84,NO_ATTACK,,NO_ATTACK
+SET_Orig_v2_AnB.AnBx,PROTO_0101,6,"N9 secret between A1,A2",attack found,75,attack found,70,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,1,"pan(A1,a3) secret between A1,a3",attack found,90,attack found,98,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,2,"a3 weakly authenticates A1 on pan(A1,a3)",attack found,85,no attack,78,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,3,A2 authenticates a3 on N4,no attack,80,attack found,90,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,4,A1 authenticates a3 on N4,no attack,75,attack found,90,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,5,A1 authenticates A2 on N4,attack found,90,attack found,85,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,6,"a3 authenticates A2 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3)",no attack,70,attack found,88,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,7,"a3 authenticates A1 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3)",attack found,85,attack found,86,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,8,"A1 authenticates a3 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3),N4",no attack,75,attack found,92,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,9,"A1 authenticates A2 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3)",attack found,90,attack found,80,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,10,"A2 authenticates A1 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3)",no attack,80,attack found,87,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,11,"A2 authenticates a3 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3),N4",no attack,75,attack found,90,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,12,"N5,N6 secret between A1,A2,a3",attack found,95,no attack,84,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,13,"hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3) secret between A1,A2,a3",no attack,85,no attack,83,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,14,"N7 secret between A1,A2",no attack,90,no attack,76,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,15,"N8 secret between A1,A2,a3",attack found,80,no attack,82,NO_ATTACK,,NO_ATTACK
+SET_Rev_AnB.AnBx,PROTO_0102,16,"N4 secret between A1,A2,a3",no attack,85,no attack,82,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,1,"pan(A1,a3) secret between A1,a3",attack found,95,attack found,95,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,2,"a3 authenticates A1 on pan(A1,a3)",no attack,85,attack found,90,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,3,A2 authenticates a3 on N4,no attack,90,no attack,92,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,4,A1 authenticates a3 on N4,no attack,90,attack found,88,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,5,A1 authenticates A2 on N4,attack found,80,attack found,85,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,6,"a3 authenticates A2 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3)",no attack,85,no attack,90,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,7,"a3 authenticates A1 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3)",attack found,75,attack found,93,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,8,"A1 authenticates a3 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3),N4",no attack,85,attack found,86,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,9,"A1 authenticates A2 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3)",attack found,80,attack found,91,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,10,"A2 authenticates A1 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3)",no attack,80,attack found,94,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,11,"A2 authenticates a3 on N8,N5,N6,hmac(N7,Hx5A2N7),hmac(pan(A1,a3),Hx5a3panA1a3),N4",no attack,90,no attack,93,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,12,"N7 secret between A1,A2",attack found,70,attack found,80,NO_ATTACK,,NO_ATTACK
+SET_Rev_v2_AnB.AnBx,PROTO_0103,13,"N8 secret between A1,A2,a3",attack found,85,no attack,90,NO_ATTACK,,NO_ATTACK
+ShareAgree2_AnB.AnBx,PROTO_0104,1,"N5,N3 secret between A1,A2",attack found,95,attack found,92,ATTACK,ATTACK,ATTACK
+ShareAgree2_AnB.AnBx,PROTO_0104,2,"shk(A1,A2) secret between A1,A2",no attack,90,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ShareAgree_AnB.AnBx,PROTO_0105,1,"N5,N3 secret between A1,A2",attack found,95,attack found,96,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ShareAgree_AnB.AnBx,PROTO_0105,2,"shk(A1,A2) secret between A1,A2",no attack,90,no attack,88,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ShareAgreeCertified_AnB.AnBx,PROTO_0106,1,"N5,N3 secret between A1,A2",attack found,95,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ShareAgreeCertified_AnB.AnBx,PROTO_0106,2,"shk(A1,A2) secret between A1,A2",no attack,90,no attack,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+ShareAgreeSimple_AnB.AnBx,PROTO_0107,1,"N3 secret between A1,A2",attack found,100,attack found,99,ATTACK,ATTACK,ATTACK
+SharedKey2_AnB.AnBx,PROTO_0108,1,A1 ->* A2: N3,no attack,95,no attack,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+SharedKey2_AnB.AnBx,PROTO_0108,2,A2 weakly authenticates A1 on N3,attack found,90,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+SharedKey_AnB.AnBx,PROTO_0109,1,A1 ->* A2: N3,no attack,95,no attack,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Sign_AnB.AnBx,PROTO_0110,1,A2 weakly authenticates A1 on N3,attack found,95,attack found,92,ATTACK,ATTACK,ATTACK
+Sign_AnB.AnBx,PROTO_0110,2,A1 -> A2: N3,attack found,90,attack found,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+SSO_AnB.AnBx,PROTO_0111,1,A2 authenticates A1 on N6,attack found,85,attack found,92,ATTACK,ATTACK,no_query
+SSO_AnB.AnBx,PROTO_0111,2,A1 authenticates A2 on N4,attack found,90,attack found,95,NO_ATTACK,ATTACK,no_query
+SSO_AnB.AnBx,PROTO_0111,3,"N4 secret between A2,A1",attack found,95,attack found,99,ATTACK,ATTACK,NO_ATTACK
+SymEnc_AnB.AnBx,PROTO_0112,1,A1 ->* A2: N3,no attack,100,no attack,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TagTT_AnB.AnBx,PROTO_0113,1,A1 -> A2: f(N3),no attack,100,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Test_Inactive_Agent_AnB.AnBx,PROTO_0114,1,A1 -> A2: N4,attack found,95,no attack,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_AnB.AnBx,PROTO_0115,1,"A2 authenticates A1 on prf(N8,N4,N5)",attack found,85,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_AnB.AnBx,PROTO_0115,2,"A1 authenticates A2 on prf(N8,N4,N5)",attack found,80,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_AnB.AnBx,PROTO_0115,3,"prf(N8,N4,N5) secret between A1,A2",no attack,75,no attack,72,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_noClientAuth_AnB.AnBx,PROTO_0116,1,"[A1] *->* A2: prf(N8,N4,N5)",attack found,85,attack found,78,NO_ATTACK,NO_ATTACK,
+TLS_noClientAuth_AnB.AnBx,PROTO_0116,2,"A2 *->* [A1]: prf(N8,N4,N5)",attack found,85,attack found,74,NO_ATTACK,NO_ATTACK,
+TLS_pw_AnB.AnBx,PROTO_0117,1,"A2 authenticates A1 on prf(N8,N4,N5)",attack found,85,attack found,86,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_pw_AnB.AnBx,PROTO_0117,2,"A1 authenticates A2 on prf(N8,N4,N5)",attack found,80,attack found,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_pw_AnB.AnBx,PROTO_0117,3,"prf(N8,N4,N5) secret between A1,A2",attack found,90,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+TLS_pw_AnB.AnBx,PROTO_0117,4,"pw(A1,A2) guessable secret between A1,A2",no attack,95,attack found,95,ATTACK,ATTACK,no_query
+TMN_AnB.AnBx,PROTO_0118,1,"N4 secret between A1,a3",attack found,95,attack found,92,ATTACK,ATTACK,ATTACK
+TMN_AnB.AnBx,PROTO_0118,2,"N5 secret between A1,A2,a3",attack found,95,attack found,90,ATTACK,ATTACK,ATTACK
+TMN_AnB.AnBx,PROTO_0118,3,A1 ->* a3: N4,no attack,90,attack found,95,ATTACK,ATTACK,ATTACK
+TMN_AnB.AnBx,PROTO_0118,4,A2 ->* a3: N5,no attack,90,attack found,88,ATTACK,ATTACK,ATTACK
+TypeConv_AnB.AnBx,PROTO_0119,1,"N5 secret between A1,A2",attack found,100,attack found,98,ATTACK,ATTACK,ATTACK
+TypeConv_AnB.AnBx,PROTO_0119,2,"V3 secret between A1,A2",attack found,100,attack found,98,ATTACK,ATTACK,ATTACK
+TypeConv_AnB.AnBx,PROTO_0119,3,A1 ->* A2: N5,no attack,100,attack found,95,ATTACK,ATTACK,ATTACK
+TypeConv_AnB.AnBx,PROTO_0119,4,A1 ->* A2: V3,no attack,100,attack found,95,ATTACK,ATTACK,ATTACK
+WL92_AnB.AnBx,PROTO_0120,1,"A1 authenticates a3 on K6,A2",no attack,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+WL92_AnB.AnBx,PROTO_0120,2,"A2 authenticates a3 on K6,A1",no attack,85,no attack,78,NO_ATTACK,ATTACK,ATTACK
+WL92_AnB.AnBx,PROTO_0120,3,"K6 secret between A1,A2,a3",attack found,75,no attack,84,NO_ATTACK,NO_ATTACK,NO_ATTACK
+WMF_AnB.AnBx,PROTO_0121,1,"N4 secret between A1,A2",attack found,85,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
+WooLam1_AnB.AnBx,PROTO_0122,1,A2 authenticates A1 on N4,attack found,85,attack found,93,ATTACK,ATTACK,NO_ATTACK
+WooLam1Test_AnB.AnBx,PROTO_0123,1,A2 authenticates A1 on N4,attack found,85,attack found,92,ATTACK,ATTACK,NO_ATTACK
+WooLam2_AnB.AnBx,PROTO_0124,1,A2 authenticates A1 on N4,attack found,85,attack found,92,ATTACK,ATTACK,ATTACK
+WooLam3_AnB.AnBx,PROTO_0125,1,A2 authenticates A1 on N4,attack found,85,attack found,93,ATTACK,ATTACK,ATTACK
+WooLam4_AnB.AnBx,PROTO_0126,1,A2 authenticates A1 on N5,attack found,85,attack found,93,ATTACK,ATTACK,ATTACK
+WooLam_AnB.AnBx,PROTO_0127,1,A2 authenticates A1 on N4,attack found,85,attack found,93,ATTACK,ATTACK,ATTACK
+WooLamF_AnB.AnBx,PROTO_0128,1,A2 authenticates A1 on N4,attack found,85,attack found,93,NO_ATTACK,NO_ATTACK,NO_ATTACK
+WooLamMutual_AnB.AnBx,PROTO_0129,1,"A2 authenticates a3 on K6,A1",attack found,85,attack found,90,ATTACK,ATTACK,ATTACK
+WooLamMutual_AnB.AnBx,PROTO_0129,2,"A1 authenticates a3 on K6,A2",attack found,85,no attack,78,ATTACK,ATTACK,ATTACK
+WooLamMutual_AnB.AnBx,PROTO_0129,3,"K6 secret between A1,A2",no attack,75,attack found,85,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0130,1,A2 weakly authenticates A1 on K6,attack found,85,attack found,90,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0130,2,A2 authenticates A1 on K6,attack found,90,attack found,95,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0130,3,"A2 authenticates a3 on K6,A1",no attack,80,attack found,88,NO_ATTACK,ATTACK,ATTACK
+Yahalom_AnB.AnBx,PROTO_0130,4,"A1 authenticates a3 on K6,A2",no attack,85,no attack,78,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0130,5,"K6 secret between A1,A2,a3",attack found,75,no attack,84,NO_ATTACK,NO_ATTACK,NO_ATTACK
+Yahalom_AnB.AnBx,PROTO_0130,6,A1 ->* A2: K6,attack found,95,attack found,92,NO_ATTACK,NO_ATTACK,NO_ATTACK
