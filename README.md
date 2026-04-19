@@ -39,4 +39,6 @@ The repository contains material corresponding to the dissertation experiments, 
 - Any paths, filenames, and protocol identifiers shown in audit files were used for experimental processing and anonymisation.
 - This repository is intended to accompany the dissertation submission and provide transparency for the implementation and experimental outputs.
 - file path from original computer was removed from all json files due to personal safety
-- folder da
+- folder data_raw_results contains files of generated results
+- folder datac contains comparison results
+- folder datarawresults contains json files 
