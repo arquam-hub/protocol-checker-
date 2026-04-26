@@ -32,6 +32,7 @@ The repository contains material corresponding to the dissertation experiments, 
 - reasoning-mode runs on a 20-protocol subset
 - a full-dataset reasoning-mode run
 - comparison outputs against ground-truth files
+- config.ini file included to input own API keys and can be amended according to users choice 
 
 ## Notes
 
