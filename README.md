@@ -35,7 +35,7 @@ The repository contains material corresponding to the dissertation experiments, 
 
 ## Notes
 
-- API keys and private configuration files are not included in this repository.
+
 - Any paths, filenames, and protocol identifiers shown in audit files were used for experimental processing and anonymisation.
 - This repository is intended to accompany the dissertation submission and provide transparency for the implementation and experimental outputs.
 - file path from original computer was removed from all json files due to personal safety
